@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonics Fundamentals - កម្មវិធីរៀនអានភាសាអង់គ្លេស (Khmer OS Muol Light)</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts: Moul, Battambang & Kantumruy Pro for Khmer, Poppins & Fredoka for Phonics/English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Fredoka:wght@500;600;700&family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Khmer OS Muol Light with Moul fallback */
+        .font-khmer-muol {
+            font-family: 'Khmer OS Muol Light', 'Khmer OS Muol', 'Moul', serif;
+            line-height: 1.85;
+        }
+        
+        .font-khmer-body {
+            font-family: 'Khmer OS Content', 'Battambang', 'Khmer OS Siemreap', 'Kantumruy Pro', sans-serif;
+        }
+
+        .font-english {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .font-phonics {
+            font-family: 'Fredoka', 'Poppins', sans-serif;
+        }
+
+        /* Subtle polka-dot pattern overlay */
+        .bg-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1.5px, transparent 1.5px),
+                              radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+
+        /* Background Color Themes */
+        .theme-cream {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+            --accent-color: #b45309;
+            --accent-soft: #fef3c7;
+            --border-color: #f59e0b;
+            --badge-bg: #d97706;
+            --highlight-bg: #fef08a;
+        }
+
+        .theme-sky {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            --accent-color: #0369a1;
+            --accent-soft: #e0f2fe;
+            --border-color: #0284c7;
+            --badge-bg: #0284c7;
+            --highlight-bg: #bae6fd;
+        }
+
+        .theme-mint {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%);
+            --accent-color: #047857;
+            --accent-soft: #d1fae5;
+            --border-color: #10b981;
+            --badge-bg: #059669;
+            --highlight-bg: #a7f3d0;
+        }
+
+        .theme-lavender {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #ddd6fe 100%);
+            --accent-color: #6d28d9;
+            --accent-soft: #ede9fe;
+            --border-color: #8b5cf6;
+            --badge-bg: #7c3aed;
+            --highlight-bg: #ddd6fe;
+        }
+
+        /* Tactile Phonics Card Styling */
+        .phonics-card {
+            transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid #e5e7eb;
+        }
+
+        .phonics-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--border-color);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .phonics-card.selected {
+            border-color: var(--border-color);
+            background-color: var(--accent-soft);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.14);
+        }
+
+        .accent-text {
+            color: var(--accent-color);
+        }
+
+        .accent-bg {
+            background-color: var(--badge-bg);
+        }
+
+        .accent-soft-bg {
+            background-color: var(--accent-soft);
+        }
+
+        .accent-border {
+            border-color: var(--border-color);
+        }
+
+        /* Hide scrollbars cleanly for horizontal tab strip on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                padding: 0 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .app-shell {
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body id="mainBody" class="theme-cream min-h-screen py-4 px-3 sm:px-6 lg:px-8 transition-colors duration-500 flex flex-col items-center">
+
+    <!-- Top Utility Bar: Theme Switcher & Print -->
+    <div class="no-print w-full max-w-6xl bg-white/90 backdrop-blur-md rounded-2xl shadow-sm p-3 sm:p-4 mb-4 border border-white flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+            <span class="font-khmer-body text-xs sm:text-sm font-semibold text-gray-700 mr-1">ពណ៌ផ្ទៃខាងក្រោយ៖</span>
+            
+            <button onclick="setTheme('theme-cream', this)" class="theme-btn ring-2 ring-amber-500 ring-offset-1 flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-khmer-body font-medium transition cursor-pointer">
+                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                មាសបុរាណ
+            </button>
+
+            <button onclick="setTheme('theme-sky', this)" class="theme-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 text-xs font-khmer-body font-medium transition cursor-pointer">
+                <span class="w-3 h-3 rounded-full bg-sky-500"></span>
+                ខៀវសមុទ្រ
+            </button>
+
+            <button onclick="setTheme('theme-mint', this)" class="theme-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-xs font-khmer-body font-medium transition cursor-pointer">
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                បៃតងធម្មជាតិ
+            </button>
+
+            <button onclick="setTheme('theme-lavender', this)" class="theme-btn flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-900 text-xs font-khmer-body font-medium transition cursor-pointer">
+                <span class="w-3 h-3 rounded-full bg-violet-500"></span>
+                ផ្កាឈូកស្វាយ
+            </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            <!-- Quick Search Box -->
+            <div class="relative flex-1 sm:w-56">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="ស្វែងរកពាក្យ (ឧ. bed, play)..."
+                    class="w-full pl-8 pr-7 py-1.5 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-amber-500 text-xs sm:text-sm font-khmer-body text-gray-800">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 text-xs cursor-pointer">✕</button>
+            </div>
+
+            <button onclick="window.print()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs sm:text-sm font-khmer-body font-semibold shadow-sm transition cursor-pointer shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                បោះពុម្ព
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Interactive Application Shell -->
+    <main class="app-shell bg-pattern relative w-full max-w-6xl rounded-3xl shadow-xl p-4 sm:p-8 bg-white/75 backdrop-blur-md border-4 border-white">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white shadow-sm mb-2 border accent-border">
+                <span class="text-base">📚</span>
+                <span class="font-english text-xs sm:text-sm font-bold tracking-wider uppercase accent-text">Phonics Fundamentals • Beginner Level (11 Lessons)</span>
+            </div>
+            
+            <h1 class="font-khmer-muol text-xl sm:text-3xl md:text-4xl accent-text drop-shadow-sm">
+                មូលដ្ឋានគ្រឹះសូរសព្ទភាសាអង់គ្លេស (Phonics Fundamentals)
+            </h1>
+            <p class="font-khmer-body text-xs sm:text-sm text-gray-600 mt-1">
+                ជ្រើសរើសមេរៀនខាងក្រោម រួចចុចលើអក្សរ ឬពាក្យនីមួយៗ ដើម្បីស្តាប់សំឡេង និងមើលប្រយោគឧទាហរណ៍ខាងក្រោម
+            </p>
+        </header>
+
+        <!-- 1. Top Navigation Menu (11 Complete Phonics Tabs) -->
+        <nav aria-label="Phonics Categories" class="no-print mb-6">
+            <div id="categoryTabs" class="flex overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center gap-2 pb-2">
+                <!-- Tabs rendered dynamically via JS -->
+            </div>
+        </nav>
+
+        <!-- Active Lesson Banner -->
+        <div id="lessonHeader" class="bg-white/90 rounded-2xl p-4 mb-5 border accent-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+            <div>
+                <span id="lessonBadge" class="inline-block px-2.5 py-0.5 rounded-md text-white font-english text-xs font-bold accent-bg mb-1">Lesson 1</span>
+                <h2 id="lessonTitleEn" class="font-english text-lg sm:text-xl font-bold text-gray-900">Single Consonants</h2>
+            </div>
+            <p id="lessonTitleKm" class="font-khmer-muol text-sm sm:text-base accent-text">ព្យញ្ជនៈទោល</p>
+        </div>
+
+        <!-- 2. Interactive Clickable Phonics Cards Grid -->
+        <section id="cardsContainer" class="mb-7">
+            <!-- Cards or Grouped Sections rendered dynamically via JS -->
+        </section>
+
+        <!-- 3. Student Learning & Example Sentence Panel -->
+        <section id="sentencePanel" class="sticky bottom-3 z-30 bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-6 border-2 accent-border shadow-2xl transition-all duration-300">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-5">
+                
+                <!-- Left: Phonics Breakdown & Khmer Translation -->
+                <div class="flex-1 flex flex-col sm:flex-row items-center gap-4 border-b lg:border-b-0 lg:border-r border-gray-200 pb-4 lg:pb-0 lg:pr-6">
+                    <!-- Emoji / Visual Cue -->
+                    <div id="panelEmoji" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl accent-soft-bg border-2 border-dashed accent-border flex items-center justify-center text-3xl sm:text-4xl shrink-0 shadow-inner select-none">
+                        🦇
+                    </div>
+
+                    <div class="text-center sm:text-left">
+                        <div class="inline-block px-2.5 py-0.5 rounded-full text-xs font-english font-semibold accent-soft-bg accent-text mb-1" id="panelRuleTag">
+                            Single Consonant
+                        </div>
+                        
+                        <!-- Color-coded Phonics Breakdown -->
+                        <div id="panelWordBreakdown" class="font-phonics text-3xl sm:text-4xl font-bold tracking-wide text-gray-900 my-0.5">
+                            b
+                        </div>
+
+                        <!-- Khmer Meaning in Khmer OS Muol Light -->
+                        <p id="panelKhmerWord" class="font-khmer-muol text-base sm:text-lg accent-text mt-1">
+                            អក្សរ B (សំឡេង ប៊)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Beginner Example Sentence & Audio Controls -->
+                <div class="flex-[1.5] flex flex-col justify-between">
+                    <div class="mb-3 text-center sm:text-left">
+                        <span class="text-[11px] font-english font-bold uppercase tracking-wider text-gray-400 block mb-1">
+                            Beginner Example Sentence • ប្រយោគឧទាហរណ៍សម្រាប់សិស្ស៖
+                        </span>
+                        
+                        <!-- Highlighted English Sentence -->
+                        <p id="panelSentenceEn" class="font-phonics text-lg sm:text-2xl font-semibold text-gray-800 leading-snug">
+                            The <span class="px-2 py-0.5 rounded-lg accent-soft-bg accent-text underline decoration-2">bat</span> can fly at night.
+                        </p>
+
+                        <!-- Khmer Sentence Translation -->
+                        <p id="panelSentenceKm" class="font-khmer-body text-xs sm:text-sm text-gray-600 mt-1.5 font-medium">
+                            សត្វប្រជៀវអាចហើរនៅពេលយប់។
+                        </p>
+                    </div>
+
+                    <!-- Interactive Speech Buttons -->
+                    <div class="no-print flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+                        <button onclick="speakCurrentWord()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl accent-bg hover:opacity-90 text-white font-khmer-body text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95 cursor-pointer">
+                            <span>🔊</span>
+                            <span>អានពាក្យ (Read Word)</span>
+                        </button>
+
+                        <button onclick="speakCurrentSentence()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-khmer-body text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95 cursor-pointer">
+                            <span>🐢</span>
+                            <span>អានប្រយោគយឺតៗ (Read Sentence)</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-6 pt-4 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-600 gap-2">
+            <div class="font-khmer-body">
+                រចនាឡើងសម្រាប់សិស្សចាប់ផ្តើមរៀនអាន • ពុម្ពអក្សរ <span class="font-semibold accent-text">Khmer OS Muol Light</span>
+            </div>
+            <div class="font-english font-medium text-gray-500">
+                Phonics Fundamentals Complete Curriculum (All 11 Lessons)
+            </div>
+        </footer>
+    </main>
+
+    <!-- Audio Status Toast -->
+    <div id="audioToast" class="fixed top-5 right-5 bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-xl text-sm font-english flex items-center gap-2.5 opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+        <span class="animate-bounce">🔊</span>
+        <span id="audioToastText">Speaking...</span>
+    </div>
+
+    <script>
+        // Complete Phonics Dataset (Original 6 Lessons + 5 Newly Added Sound Lessons)
+        const phonicsCategories = [
+            {
+                id: 'single-consonants',
+                tabEn: '1. Consonants',
+                tabKm: 'ព្យញ្ជនៈទោល',
+                pageBadge: 'Lesson 1 • Single Consonants',
+                titleEn: 'An Introduction to Single Consonants',
+                titleKm: 'មេរៀនទី១៖ ព្យញ្ជនៈទោល (Single Consonants)',
+                items: [
+                    { label: 'b', speakText: 'b, ball', breakdown: '<span class="accent-text">b</span> - ball', rule: 'Consonant B /b/', km: 'អក្សរ B (សំឡេង ប៊)', emoji: '⚽', sentenceEn: 'The [b]oy kicks the red [b]all.', sentenceKm: 'ក្មេងប្រុសទាត់បាល់ពណ៌ក្រហម។' },
+                    { label: 'c', speakText: 'c, cat', breakdown: '<span class="accent-text">c</span> - cat', rule: 'Consonant C /k/', km: 'អក្សរ C (សំឡេង ខឹ)', emoji: '🐱', sentenceEn: 'The cute [c]at drinks milk.', sentenceKm: 'ឆ្មាគួរឱ្យស្រលាញ់ផឹកទឹកដោះគោ។' },
+                    { label: 'd', speakText: 'd, dog', breakdown: '<span class="accent-text">d</span> - dog', rule: 'Consonant D /d/', km: 'អក្សរ D (សំឡេង ដឹ)', emoji: '🐶', sentenceEn: 'My little [d]og likes to run.', sentenceKm: 'ឆ្កែតូចរបស់ខ្ញុំចូលចិត្តរត់។' },
+                    { label: 'f', speakText: 'f, fish', breakdown: '<span class="accent-text">f</span> - fish', rule: 'Consonant F /f/', km: 'អក្សរ F (សំឡេង ហ្វឹ)', emoji: '🐟', sentenceEn: 'A blue [f]ish swims in the pond.', sentenceKm: 'ត្រីពណ៌ខៀវហែលក្នុងស្រះ។' },
+                    { label: 'g', speakText: 'g, goat', breakdown: '<span class="accent-text">g</span> - goat', rule: 'Consonant G /g/', km: 'អក្សរ G (សំឡេង ហ្គឹ)', emoji: '🐐', sentenceEn: 'The [g]oat eats green grass.', sentenceKm: 'ពពែស៊ីស្មៅពណ៌បៃតង។' },
+                    { label: 'h', speakText: 'h, hat', breakdown: '<span class="accent-text">h</span> - hat', rule: 'Consonant H /h/', km: 'អក្សរ H (សំឡេង ហឹ)', emoji: '🎩', sentenceEn: 'He wears a big [h]at.', sentenceKm: 'គាត់ពាក់មួកធំមួយ។' },
+                    { label: 'j', speakText: 'j, jam', breakdown: '<span class="accent-text">j</span> - jam', rule: 'Consonant J /dʒ/', km: 'អក្សរ J (សំឡេង ជឹ)', emoji: '🍓', sentenceEn: 'I put sweet [j]am on my bread.', sentenceKm: 'ខ្ញុំលាបដំណាប់ផ្អែមលើនំប៉័ងរបស់ខ្ញុំ។' },
+                    { label: 'k', speakText: 'k, kite', breakdown: '<span class="accent-text">k</span> - kite', rule: 'Consonant K /k/', km: 'អក្សរ K (សំឡេង ខឹ)', emoji: '🪁', sentenceEn: 'Look at the [k]ite in the sky!', sentenceKm: 'មើលខ្លែងនៅលើមេឃនោះ!' },
+                    { label: 'm', speakText: 'm, map', breakdown: '<span class="accent-text">m</span> - map', rule: 'Consonant M /m/', km: 'អក្សរ M (សំឡេង មឹ)', emoji: '🗺️', sentenceEn: 'We look at the [m]ap together.', sentenceKm: 'ពួកយើងមើលផែនទីជាមួយគ្នា។' },
+                    { label: 'n', speakText: 'n, net', breakdown: '<span class="accent-text">n</span> - net', rule: 'Consonant N /n/', km: 'អក្សរ N (សំឡេង នឹ)', emoji: '🥅', sentenceEn: 'The ball goes into the [n]et.', sentenceKm: 'បាល់ចូលទៅក្នុងសំណាញ់។' },
+                    { label: 'p', speakText: 'p, pig', breakdown: '<span class="accent-text">p</span> - pig', rule: 'Consonant P /p/', km: 'អក្សរ P (សំឡេង ភឹ)', emoji: '🐷', sentenceEn: 'The pink [p]ig is very happy.', sentenceKm: 'ជ្រូកពណ៌ផ្កាឈូកសប្បាយចិត្តណាស់។' },
+                    { label: 'q', speakText: 'q, queen', breakdown: '<span class="accent-text">qu</span> - queen', rule: 'Consonant Q /kw/', km: 'អក្សរ Q (សំឡេង ខ្វឹ)', emoji: '👑', sentenceEn: 'The [q]ueen has a gold crown.', sentenceKm: 'ម្ចាស់ក្សត្រីមានមកុដមាស។' },
+                    { label: 'r', speakText: 'r, rat', breakdown: '<span class="accent-text">r</span> - rat', rule: 'Consonant R /r/', km: 'អក្សរ R (សំឡេង រឹ)', emoji: '🐀', sentenceEn: 'The gray [r]at runs fast.', sentenceKm: 'កណ្តុរប្រផេះរត់យ៉ាងលឿន។' },
+                    { label: 's', speakText: 's, sun', breakdown: '<span class="accent-text">s</span> - sun', rule: 'Consonant S /s/', km: 'អក្សរ S (សំឡេង សឹ)', emoji: '☀️', sentenceEn: 'The bright [s]un is hot today.', sentenceKm: 'ព្រះអាទិត្យភ្លឺក្តៅនៅថ្ងៃនេះ។' },
+                    { label: 't', speakText: 't, top', breakdown: '<span class="accent-text">t</span> - top', rule: 'Consonant T /t/', km: 'អក្សរ T (សំឡេង ធឹ)', emoji: '🪀', sentenceEn: 'The spinning [t]op is fun.', sentenceKm: 'កូនខាងបង្វិលពិតជាសប្បាយ។' },
+                    { label: 'v', speakText: 'v, van', breakdown: '<span class="accent-text">v</span> - van', rule: 'Consonant V /v/', km: 'អក្សរ V (សំឡេង វឹ)', emoji: '🚐', sentenceEn: 'We ride to school in a [v]an.', sentenceKm: 'ពួកយើងជិះរថយន្តវ៉ែនទៅសាលារៀន។' },
+                    { label: 'w', speakText: 'w, web', breakdown: '<span class="accent-text">w</span> - web', rule: 'Consonant W /w/', km: 'អក្សរ W (សំឡេង វ៉ឹ)', emoji: '🕸️', sentenceEn: 'A spider makes a [w]eb.', sentenceKm: 'សត្វពីងពាងត្បាញសំណាញ់។' },
+                    { label: 'z', speakText: 'z, zebra', breakdown: '<span class="accent-text">z</span> - zebra', rule: 'Consonant Z /z/', km: 'អក្សរ Z (សំឡេង ហ្សឹ)', emoji: '🦓', sentenceEn: 'The [z]ebra has black stripes.', sentenceKm: 'សេះបង្កង់មានឆ្នូតពណ៌ខ្មៅ។' }
+                ]
+            },
+            {
+                id: 'consonant-blends',
+                tabEn: '2. Blends',
+                tabKm: 'ព្យញ្ជនៈផ្គួប',
+                pageBadge: 'Lesson 2 • Consonant Blends',
+                titleEn: 'An Introduction to Consonant Blends',
+                titleKm: 'មេរៀនទី២៖ ព្យញ្ជនៈផ្គួប (Consonant Blends)',
+                items: [
+                    { label: 'bl', speakText: 'bl, black', breakdown: '<span class="accent-text">bl</span> + ack', rule: 'L-Blend (bl)', km: 'ព្យញ្ជនៈផ្គួប bl (ប្លឹ)', emoji: '⬛', sentenceEn: 'My cat has soft [bl]ack fur.', sentenceKm: 'ឆ្មារបស់ខ្ញុំមានរោមពណ៌ខ្មៅទន់។' },
+                    { label: 'cl', speakText: 'cl, clap', breakdown: '<span class="accent-text">cl</span> + ap', rule: 'L-Blend (cl)', km: 'ព្យញ្ជនៈផ្គួប cl (ខ្លឹ)', emoji: '👏', sentenceEn: 'We [cl]ap our hands together.', sentenceKm: 'ពួកយើងទះដៃជាមួយគ្នា។' },
+                    { label: 'sl', speakText: 'sl, sled', breakdown: '<span class="accent-text">sl</span> + ed', rule: 'L-Blend (sl)', km: 'ព្យញ្ជនៈផ្គួប sl (ស្លឹ)', emoji: '🛷', sentenceEn: 'The kids ride on a red [sl]ed.', sentenceKm: 'ក្មេងៗជិះរទេះរអិលពណ៌ក្រហម។' },
+                    { label: 'pl', speakText: 'pl, plan', breakdown: '<span class="accent-text">pl</span> + an', rule: 'L-Blend (pl)', km: 'ព្យញ្ជនៈផ្គួប pl (ផ្លឹ)', emoji: '📋', sentenceEn: 'We have a good [pl]an today.', sentenceKm: 'ពួកយើងមានផែនការល្អនៅថ្ងៃនេះ។' },
+                    { label: 'tw', speakText: 'tw, twins', breakdown: '<span class="accent-text">tw</span> + ins', rule: 'W-Blend (tw)', km: 'ព្យញ្ជនៈផ្គួប tw (ធ្វឹ)', emoji: '👯', sentenceEn: 'The [tw]ins look just the same.', sentenceKm: 'កូនភ្លោះទាំងពីរមានមុខដូចគ្នាបេះបិទ។' },
+                    { label: 'sw', speakText: 'sw, swim', breakdown: '<span class="accent-text">sw</span> + im', rule: 'W-Blend (sw)', km: 'ព្យញ្ជនៈផ្គួប sw (ស្វឹ)', emoji: '🏊', sentenceEn: 'I can [sw]im in the pool.', sentenceKm: 'ខ្ញុំអាចហែលទឹកក្នុងអាងបាន។' },
+                    { label: 'tr', speakText: 'tr, tree', breakdown: '<span class="accent-text">tr</span> + ee', rule: 'R-Blend (tr)', km: 'ព្យញ្ជនៈផ្គួប tr (ត្រឹ)', emoji: '🌳', sentenceEn: 'A bird sits in the tall [tr]ee.', sentenceKm: 'សត្វចាបទំនៅលើដើមឈើខ្ពស់។' },
+                    { label: 'sr', speakText: 'sr, Sri Lanka', breakdown: '<span class="accent-text">sr</span> - blend', rule: 'R-Blend (sr)', km: 'ព្យញ្ជនៈផ្គួប sr (ស្រឹ)', emoji: '🌏', sentenceEn: 'He visited [Sr]i Lanka last year.', sentenceKm: 'គាត់បានទៅលេងប្រទេសស្រីលង្កាកាលពីឆ្នាំមុន។' },
+                    { label: 'cr', speakText: 'cr, crack', breakdown: '<span class="accent-text">cr</span> + ack', rule: 'R-Blend (cr)', km: 'ព្យញ្ជនៈផ្គួប cr (ក្រឹ)', emoji: '🥚', sentenceEn: 'Do not [cr]ack the white egg.', sentenceKm: 'កុំធ្វើឱ្យពងមាន់ពណ៌សប្រេះ។' },
+                    { label: 'spr', speakText: 'spr, spring', breakdown: '<span class="accent-text">spr</span> + ing', rule: '3-Letter Blend (spr)', km: 'ព្យញ្ជនៈផ្គួប ៣ តួ spr (ស្ព្រឹ)', emoji: '🌷', sentenceEn: 'Flowers bloom in the [spr]ing.', sentenceKm: 'ផ្ការីកនៅរដូវផ្ការីក។' },
+                    { label: 'str', speakText: 'str, street', breakdown: '<span class="accent-text">str</span> + eet', rule: '3-Letter Blend (str)', km: 'ព្យញ្ជនៈផ្គួប ៣ តួ str (ស្ត្រឹ)', emoji: '🛣️', sentenceEn: 'Look both ways before crossing the [str]eet.', sentenceKm: 'មើលឆ្វេងស្តាំមុនពេលឆ្លងផ្លូវ។' },
+                    { label: 'br', speakText: 'br, brand', breakdown: '<span class="accent-text">br</span> + and', rule: 'R-Blend (br)', km: 'ព្យញ្ជនៈផ្គួប br (ប្រឹ)', emoji: '🏷️', sentenceEn: 'This bag is a [br]and new gift.', sentenceKm: 'កាតាបនេះជាកាដូថ្មីសន្លាង។' },
+                    { label: 'sq', speakText: 'sq, square', breakdown: '<span class="accent-text">squ</span> + are', rule: 'S-Blend (sq)', km: 'ព្យញ្ជនៈផ្គួប sq (ស្ក្វឹ)', emoji: '🟦', sentenceEn: 'A [sq]uare has four equal sides.', sentenceKm: 'ការ៉េមានជ្រុងស្មើគ្នាបួន។' },
+                    { label: 'sn', speakText: 'sn, snack', breakdown: '<span class="accent-text">sn</span> + ack', rule: 'S-Blend (sn)', km: 'ព្យញ្ជនៈផ្គួប sn (ស្នឹ)', emoji: '🥨', sentenceEn: 'We eat a healthy [sn]ack at school.', sentenceKm: 'ពួកយើងញ៉ាំអាហារសម្រន់ល្អចំពោះសុខភាពនៅសាលា។' },
+                    { label: 'sm', speakText: 'sm, smile', breakdown: '<span class="accent-text">sm</span> + ile', rule: 'S-Blend (sm)', km: 'ព្យញ្ជនៈផ្គួប sm (ស្មឹ)', emoji: '😊', sentenceEn: 'She has a bright [sm]ile.', sentenceKm: 'នាងមានស្នាមញញឹមស្រស់ថ្លា។' },
+                    { label: 'sp', speakText: 'sp, spoon', breakdown: '<span class="accent-text">sp</span> + oon', rule: 'S-Blend (sp)', km: 'ព្យញ្ជនៈផ្គួប sp (ស្ពឹ)', emoji: '🥄', sentenceEn: 'I eat soup with a [sp]oon.', sentenceKm: 'ខ្ញុំញ៉ាំស៊ុបដោយប្រើស្លាបព្រា។' },
+                    { label: 'st', speakText: 'st, star', breakdown: '<span class="accent-text">st</span> + ar', rule: 'S-Blend (st)', km: 'ព្យញ្ជនៈផ្គួប st (ស្តឹ)', emoji: '⭐', sentenceEn: 'I see a shining [st]ar at night.', sentenceKm: 'ខ្ញុំឃើញផ្កាយភ្លឺចែងចាំងនៅពេលយប់។' }
+                ]
+            },
+            {
+                id: 'vowel-sounds',
+                tabEn: '3. Vowels',
+                tabKm: 'សំឡេងស្រៈ',
+                pageBadge: 'Lesson 3 • Vowel Sounds',
+                titleEn: 'An Introduction to Short & Long Vowel Sounds',
+                titleKm: 'មេរៀនទី៣៖ សំឡេងស្រៈខ្លី និងស្រៈវែង (Vowel Sounds)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Short Vowels (ă, ĕ, ĭ, ŏ, ŭ)',
+                        groupNameKm: 'ស្រៈសំឡេងខ្លី',
+                        items: [
+                            { label: 'ă', speakText: 'short a, apple', breakdown: '<span class="accent-text">ă</span> - apple', rule: 'Short Vowel A /æ/', km: 'ស្រៈ ă សំឡេងខ្លី (អ៊ែ)', emoji: '🍎', sentenceEn: 'I eat a sweet red [a]pple.', sentenceKm: 'ខ្ញុំញ៉ាំផ្លែប៉ោមក្រហមផ្អែម។' },
+                            { label: 'ĕ', speakText: 'short e, egg', breakdown: '<span class="accent-text">ĕ</span> - egg', rule: 'Short Vowel E /ɛ/', km: 'ស្រៈ ĕ សំឡេងខ្លី (អិ)', emoji: '🥚', sentenceEn: 'The hen laid one brown [e]gg.', sentenceKm: 'មេមាន់ពងបានមួយគ្រាប់ពណ៌ត្នោត។' },
+                            { label: 'ĭ', speakText: 'short i, igloo', breakdown: '<span class="accent-text">ĭ</span> - igloo', rule: 'Short Vowel I /ɪ/', km: 'ស្រៈ ĭ សំឡេងខ្លី (អ៊ីខ្លី)', emoji: '🧊', sentenceEn: 'An [i]gloo is made of ice.', sentenceKm: 'ផ្ទះទឹកកកធ្វើឡើងពីដុំទឹកកក។' },
+                            { label: 'ŏ', speakText: 'short o, octopus', breakdown: '<span class="accent-text">ŏ</span> - octopus', rule: 'Short Vowel O /ɒ/', km: 'ស្រៈ ŏ សំឡេងខ្លី (អុ)', emoji: '🐙', sentenceEn: 'An [o]ctopus has eight arms.', sentenceKm: 'មឹកយក្សមានដៃប្រាំបី។' },
+                            { label: 'ŭ', speakText: 'short u, umbrella', breakdown: '<span class="accent-text">ŭ</span> - umbrella', rule: 'Short Vowel U /ʌ/', km: 'ស្រៈ ŭ សំឡេងខ្លី (អាក់)', emoji: '☂️', sentenceEn: 'Use an [u]mbrella in the rain.', sentenceKm: 'ប្រើឆ័ត្រនៅពេលមេឃភ្លៀង។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Long Vowels (ā, ē, ī, ō, ū)',
+                        groupNameKm: 'ស្រៈសំឡេងវែង',
+                        items: [
+                            { label: 'ā', speakText: 'long a, cake', breakdown: 'c<span class="accent-text">ā</span>ke', rule: 'Long Vowel A /eɪ/', km: 'ស្រៈ ā សំឡេងវែង (អេ)', emoji: '🎂', sentenceEn: 'We eat birthday [c]ake today.', sentenceKm: 'ពួកយើងញ៉ាំនំខេកថ្ងៃកំណើតនៅថ្ងៃនេះ។' },
+                            { label: 'ē', speakText: 'long e, bee', breakdown: 'b<span class="accent-text">ēē</span>', rule: 'Long Vowel E /iː/', km: 'ស្រៈ ē សំឡេងវែង (អ៊ី)', emoji: '🐝', sentenceEn: 'The busy [b]ee makes honey.', sentenceKm: 'ឃ្មុំដ៏ឧស្សាហ៍ផលិតទឹកឃ្មុំ។' },
+                            { label: 'ī', speakText: 'long i, bike', breakdown: 'b<span class="accent-text">ī</span>ke', rule: 'Long Vowel I /aɪ/', km: 'ស្រៈ ī សំឡេងវែង (អាយ)', emoji: '🚲', sentenceEn: 'I ride my blue [b]ike to the park.', sentenceKm: 'ខ្ញុំជិះកង់ពណ៌ខៀវទៅសួនច្បារ។' },
+                            { label: 'ō', speakText: 'long o, boat', breakdown: 'b<span class="accent-text">ō</span>at', rule: 'Long Vowel O /oʊ/', km: 'ស្រៈ ō សំឡេងវែង (អូ)', emoji: '⛵', sentenceEn: 'The [b]oat sails on the river.', sentenceKm: 'ទូកបើកបរនៅលើទន្លេ។' },
+                            { label: 'ū', speakText: 'long u, cube', breakdown: 'c<span class="accent-text">ū</span>be', rule: 'Long Vowel U /juː/', km: 'ស្រៈ ū សំឡេងវែង (យូ)', emoji: '🧊', sentenceEn: 'Put an ice [c]ube in the cup.', sentenceKm: 'ដាក់ដុំទឹកកកមួយដុំចូលក្នុងពែង។' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'word-families',
+                tabEn: '4. Rimes (a / i)',
+                tabKm: 'ពាក្យចុងចួន (a / i)',
+                pageBadge: 'Lesson 4 • Short a & i Rimes',
+                titleEn: 'Word Families (Short "a" & Short "i" Rimes)',
+                titleKm: 'មេរៀនទី៤៖ ក្រុមពាក្យចុងចួន (Short a & i Rimes)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Short "a" Word Families',
+                        groupNameKm: 'ក្រុមពាក្យស្រៈ a ខ្លី',
+                        items: [
+                            { label: '-ap', speakText: 'ap, nap, cap, map', breakdown: 'n<span class="accent-text">ap</span> • c<span class="accent-text">ap</span> • m<span class="accent-text">ap</span>', rule: '-ap Word Family', km: 'ក្រុមពាក្យចុង -ap (អែប)', emoji: '🧢', sentenceEn: 'He wears a [c]ap and takes a [n]ap.', sentenceKm: 'គាត់ពាក់មួកកាតឹប ហើយសម្រាកគេងថ្ងៃ។' },
+                            { label: '-an', speakText: 'an, fan, man, can, plan', breakdown: 'f<span class="accent-text">an</span> • m<span class="accent-text">an</span> • c<span class="accent-text">an</span>', rule: '-an Word Family', km: 'ក្រុមពាក្យចុង -an (អែន)', emoji: '🪭', sentenceEn: 'The [m]an turns on the [f]an.', sentenceKm: 'បុរសម្នាក់បើកកង្ហារ។' },
+                            { label: '-ack', speakText: 'ack, pack, sack, back, crack, rack', breakdown: 'p<span class="accent-text">ack</span> • s<span class="accent-text">ack</span> • b<span class="accent-text">ack</span>', rule: '-ack Word Family', km: 'ក្រុមពាក្យចុង -ack (អ៊ែក)', emoji: '🎒', sentenceEn: 'Put the [s]ack on the [r]ack.', sentenceKm: 'ដាក់បាវនៅលើធ្នើរ។' },
+                            { label: '-am', speakText: 'am, jam, ham, yam', breakdown: 'j<span class="accent-text">am</span> • h<span class="accent-text">am</span> • y<span class="accent-text">am</span>', rule: '-am Word Family', km: 'ក្រុមពាក្យចុង -am (អែម)', emoji: '🥪', sentenceEn: 'I like [j]am and [h]am for lunch.', sentenceKm: 'ខ្ញុំចូលចិត្តដំណាប់ និងសាច់ហែមសម្រាប់អាហារថ្ងៃត្រង់។' },
+                            { label: '-at', speakText: 'at, bat, fat, rat, cat', breakdown: 'b<span class="accent-text">at</span> • c<span class="accent-text">at</span> • r<span class="accent-text">at</span>', rule: '-at Word Family', km: 'ក្រុមពាក្យចុង -at (អែត)', emoji: '🐱', sentenceEn: 'The [f]at [c]at chases the [r]at.', sentenceKm: 'ឆ្មាធាត់ដេញចាប់កណ្តុរ។' },
+                            { label: '-ag', speakText: 'ag, bag, drag, flag', breakdown: 'b<span class="accent-text">ag</span> • fl<span class="accent-text">ag</span> • dr<span class="accent-text">ag</span>', rule: '-ag Word Family', km: 'ក្រុមពាក្យចុង -ag (អ៊ែក)', emoji: '🇰🇭', sentenceEn: 'Put the small [fl]ag in your [b]ag.', sentenceKm: 'ដាក់ទង់ជាតិតូចចូលក្នុងកាតាបរបស់អ្នក។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Short "i" Word Families',
+                        groupNameKm: 'ក្រុមពាក្យស្រៈ i ខ្លី',
+                        items: [
+                            { label: '-ig', speakText: 'ig, pig, big, dig', breakdown: 'p<span class="accent-text">ig</span> • b<span class="accent-text">ig</span> • d<span class="accent-text">ig</span>', rule: '-ig Word Family', km: 'ក្រុមពាក្យចុង -ig (អ៊ីហ្គ)', emoji: '🐖', sentenceEn: 'The [b]ig [p]ig likes to [d]ig.', sentenceKm: 'ជ្រូកធំចូលចិត្តឈ្មុសដី។' },
+                            { label: '-ill', speakText: 'ill, grill, till, hill', breakdown: 'gr<span class="accent-text">ill</span> • t<span class="accent-text">ill</span> • h<span class="accent-text">ill</span>', rule: '-ill Word Family', km: 'ក្រុមពាក្យចុង -ill (អ៊ីល)', emoji: '🍖', sentenceEn: 'We cook on the [gr]ill [t]ill dinner.', sentenceKm: 'ពួកយើងអាំងសាច់លើចង្ក្រានរហូតដល់ពេលអាហារពេលល្ងាច។' },
+                            { label: '-in', speakText: 'in, twins, pin, win', breakdown: 'tw<span class="accent-text">ins</span> • p<span class="accent-text">in</span> • w<span class="accent-text">in</span>', rule: '-in Word Family', km: 'ក្រុមពាក្យចុង -in (អ៊ីន)', emoji: '👯', sentenceEn: 'The [tw]ins play [in] the room.', sentenceKm: 'កូនភ្លោះទាំងពីរលេងនៅក្នុងបន្ទប់។' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'short-a-words',
+                tabEn: '5. Short "a"',
+                tabKm: 'ពាក្យស្រៈ a ខ្លី',
+                pageBadge: 'Lesson 5 • Short "a" Words',
+                titleEn: 'Short "a" CVC & CCVC Words (22 Words)',
+                titleKm: 'មេរៀនទី៥៖ ពាក្យស្រៈ a ខ្លី (Short "a" Words)',
+                items: [
+                    { label: 'bat', speakText: 'bat', breakdown: 'b + <span class="accent-text">at</span>', rule: 'CVC Word • -at family', km: 'ប្រជៀវ (n)', emoji: '🦇', sentenceEn: 'A black [b]at flies at night.', sentenceKm: 'សត្វប្រជៀវខ្មៅហើរនៅពេលយប់។' },
+                    { label: 'fat', speakText: 'fat', breakdown: 'f + <span class="accent-text">at</span>', rule: 'CVC Word • -at family', km: 'ធាត់ (adj)', emoji: '🦛', sentenceEn: 'The [f]at hippo loves water.', sentenceKm: 'សត្វដំរីទឹកធាត់ចូលចិត្តទឹក។' },
+                    { label: 'rat', speakText: 'rat', breakdown: 'r + <span class="accent-text">at</span>', rule: 'CVC Word • -at family', km: 'កណ្ដុរប្រែង (n)', emoji: '🐀', sentenceEn: 'The [r]at hides under the box.', sentenceKm: 'កណ្ដុរប្រែងពួននៅក្រោមប្រអប់។' },
+                    { label: 'cat', speakText: 'cat', breakdown: 'c + <span class="accent-text">at</span>', rule: 'CVC Word • -at family', km: 'ឆ្មា (n)', emoji: '🐈', sentenceEn: 'My [c]at sleeps on the mat.', sentenceKm: 'ឆ្មារបស់ខ្ញុំដេកនៅលើកន្ទេល។' },
+                    { label: 'plan', speakText: 'plan', breakdown: '<span class="accent-text">pl</span> + an', rule: 'CCVC Word • -an family', km: 'ផែនការ (n)', emoji: '📋', sentenceEn: 'We have a smart [pl]an.', sentenceKm: 'ពួកយើងមានផែនការដ៏ឆ្លាតវៃ។' },
+                    { label: 'fan', speakText: 'fan', breakdown: 'f + <span class="accent-text">an</span>', rule: 'CVC Word • -an family', km: 'កង្ហា (n)', emoji: '🪭', sentenceEn: 'The [f]an keeps our room cool.', sentenceKm: 'កង្ហាជួយឱ្យបន្ទប់របស់យើងត្រជាក់។' },
+                    { label: 'man', speakText: 'man', breakdown: 'm + <span class="accent-text">an</span>', rule: 'CVC Word • -an family', km: 'បុរស (n)', emoji: '👨', sentenceEn: 'The tall [m]an helps his friend.', sentenceKm: 'បុរសខ្ពស់ម្នាក់ជួយមិត្តភក្តិរបស់គាត់។' },
+                    { label: 'can', speakText: 'can', breakdown: 'c + <span class="accent-text">an</span>', rule: 'CVC Word • -an family', km: 'កំប៉ុង (n)', emoji: '🥫', sentenceEn: 'Put the empty [c]an in the bin.', sentenceKm: 'ដាក់កំប៉ុងទទេចូលក្នុងធុងសំរាម។' },
+                    { label: 'brand', speakText: 'brand', breakdown: '<span class="accent-text">br</span> + and', rule: 'CCVCC Word • -and family', km: 'ម៉ាក / ថ្មីសន្លាង (n)', emoji: '🏷️', sentenceEn: 'She has a [br]and new pencil.', sentenceKm: 'នាងមានខ្មៅដៃថ្មីសន្លាងមួយដើម។' },
+                    { label: 'band', speakText: 'band', breakdown: 'b + <span class="accent-text">and</span>', rule: 'CVCC Word • -and family', km: 'ក្រុមតន្ត្រី (n)', emoji: '🎸', sentenceEn: 'The school [b]and plays happy music.', sentenceKm: 'ក្រុមតន្ត្រីសាលាលេងភ្លេងយ៉ាងសប្បាយរីករាយ។' },
+                    { label: 'crack', speakText: 'crack', breakdown: '<span class="accent-text">cr</span> + ack', rule: 'CCVCC Word • -ack family', km: 'ស្នាមប្រេះ (n/v)', emoji: '🥚', sentenceEn: 'There is a small [cr]ack in the cup.', sentenceKm: 'មានស្នាមប្រេះតូចមួយនៅលើពែង។' },
+                    { label: 'back', speakText: 'back', breakdown: 'b + <span class="accent-text">ack</span>', rule: 'CVCC Word • -ack family', km: 'ខ្នង / ត្រឡប់មកវិញ (n/adv)', emoji: '🔙', sentenceEn: 'Please come [b]ack to class soon.', sentenceKm: 'សូមត្រឡប់មកថ្នាក់រៀនវិញឆាប់ៗ។' },
+                    { label: 'bag', speakText: 'bag', breakdown: 'b + <span class="accent-text">ag</span>', rule: 'CVC Word • -ag family', km: 'កាតាប (n)', emoji: '🎒', sentenceEn: 'My books are inside my [b]ag.', sentenceKm: 'សៀវភៅរបស់ខ្ញុំនៅក្នុងកាតាបរបស់ខ្ញុំ។' },
+                    { label: 'drag', speakText: 'drag', breakdown: '<span class="accent-text">dr</span> + ag', rule: 'CCVC Word • -ag family', km: 'អូស (v)', emoji: '🧳', sentenceEn: 'Do not [dr]ag your heavy bag.', sentenceKm: 'កុំអូសកាតាបធ្ងន់របស់អ្នក។' },
+                    { label: 'black', speakText: 'black', breakdown: '<span class="accent-text">bl</span> + ack', rule: 'CCVCC Word • -ack family', km: 'ពណ៌ខ្មៅ (adj)', emoji: '⬛', sentenceEn: 'I write with a [bl]ack pen.', sentenceKm: 'ខ្ញុំសរសេរដោយប្រើប៊ិចពណ៌ខ្មៅ។' },
+                    { label: 'flag', speakText: 'flag', breakdown: '<span class="accent-text">fl</span> + ag', rule: 'CCVC Word • -ag family', km: 'ទង់ជាតិ (n)', emoji: '🇰🇭', sentenceEn: 'We salute our national [fl]ag.', sentenceKm: 'ពួកយើងគោរពទង់ជាតិរបស់យើង។' },
+                    { label: 'pack', speakText: 'pack', breakdown: 'p + <span class="accent-text">ack</span>', rule: 'CVCC Word • -ack family', km: 'រៀបចំ / វេចខ្ចប់ (v)', emoji: '📦', sentenceEn: 'I [p]ack my lunch every morning.', sentenceKm: 'ខ្ញុំរៀបចំអាហារថ្ងៃត្រង់រៀងរាល់ព្រឹក។' },
+                    { label: 'sack', speakText: 'sack', breakdown: 's + <span class="accent-text">ack</span>', rule: 'CVCC Word • -ack family', km: 'បាវ / ការុង (n)', emoji: '🌾', sentenceEn: 'The farmer carries a [s]ack of rice.', sentenceKm: 'កសិករលីបាវអង្ករមួយបាវ។' },
+                    { label: 'wax', speakText: 'wax', breakdown: 'w + <span class="accent-text">ax</span>', rule: 'CVC Word • -ax family', km: 'ក្រមួនទៀន (n)', emoji: '🕯️', sentenceEn: 'The candle is made of white [w]ax.', sentenceKm: 'ទៀនធ្វើឡើងពីក្រមួនពណ៌ស។' },
+                    { label: 'nap', speakText: 'nap', breakdown: 'n + <span class="accent-text">ap</span>', rule: 'CVC Word • -ap family', km: 'ការគេងថ្ងៃមួយភ្លែត (n)', emoji: '😴', sentenceEn: 'The baby takes a short [n]ap.', sentenceKm: 'ទារកគេងថ្ងៃមួយភ្លែត។' },
+                    { label: 'rack', speakText: 'rack', breakdown: 'r + <span class="accent-text">ack</span>', rule: 'CVCC Word • -ack family', km: 'ធ្នើរដាក់ឥវ៉ាន់ (n)', emoji: '👟', sentenceEn: 'Put your shoes on the shoe [r]ack.', sentenceKm: 'ដាក់ស្បែកជើងរបស់អ្នកនៅលើធ្នើរស្បែកជើង។' },
+                    { label: 'fact', speakText: 'fact', breakdown: 'f + <span class="accent-text">act</span>', rule: 'CVCC Word • -act family', km: 'ការពិត (n)', emoji: '💡', sentenceEn: 'It is a [f]act that the earth is round.', sentenceKm: 'វាជាការពិតដែលផែនដីមានរាងមូល។' }
+                ]
+            },
+            {
+                id: 'short-i-words',
+                tabEn: '6. Short "i"',
+                tabKm: 'ពាក្យស្រៈ i ខ្លី',
+                pageBadge: 'Lesson 6 • Short "i" Words',
+                titleEn: 'Short "i" Words & Blends (12 Words)',
+                titleKm: 'មេរៀនទី៦៖ ពាក្យស្រៈ i ខ្លី (Short "i" Words)',
+                items: [
+                    { label: 'his', speakText: 'his', breakdown: 'h + <span class="accent-text">is</span>', rule: 'Short "i" Word', km: 'របស់គាត់ (ប្រុស)', emoji: '👦', sentenceEn: 'That blue book is [h]is.', sentenceKm: 'សៀវភៅពណ៌ខៀវនោះជារបស់គាត់។' },
+                    { label: 'it', speakText: 'it', breakdown: '<span class="accent-text">i</span> + t', rule: 'VC Word • -it family', km: 'វា (pron)', emoji: '🧸', sentenceEn: 'Look at the toy, [i]t is cute!', sentenceKm: 'មើលតុក្កតានោះ វាគួរឱ្យស្រលាញ់ណាស់!' },
+                    { label: 'sick', speakText: 'sick', breakdown: 's + <span class="accent-text">ick</span>', rule: 'CVCC Word • -ick family', km: 'ឈឺ (adj)', emoji: '🤒', sentenceEn: 'Stay home and rest if you feel [s]ick.', sentenceKm: 'ស្នាក់នៅផ្ទះ និងសម្រាកប្រសិនបើអ្នកមានអារម្មណ៍ថាឈឺ។' },
+                    { label: 'grill', speakText: 'grill', breakdown: '<span class="accent-text">gr</span> + ill', rule: 'CCVCC Word • -ill family', km: 'ចង្ក្រានអាំង (n/v)', emoji: '🍖', sentenceEn: 'Dad cooks fish on the [gr]ill.', sentenceKm: 'ប៉ាអាំងត្រីនៅលើចង្ក្រានអាំង។' },
+                    { label: 'list', speakText: 'list', breakdown: 'l + <span class="accent-text">ist</span>', rule: 'CVCC Word • -ist family', km: 'បញ្ជីរាយនាម (n)', emoji: '📝', sentenceEn: 'Write your name on the class [l]ist.', sentenceKm: 'សរសេរឈ្មោះរបស់អ្នកនៅលើបញ្ជីឈ្មោះថ្នាក់។' },
+                    { label: 'sister', speakText: 'sister', breakdown: 's<span class="accent-text">is</span> + ter', rule: '2-Syllable Short "i"', km: 'បងស្រី / ប្អូនស្រី (n)', emoji: '👧', sentenceEn: 'My [s]ister helps me read books.', sentenceKm: 'បងស្រីរបស់ខ្ញុំជួយខ្ញុំអានសៀវភៅ។' },
+                    { label: 'miss', speakText: 'miss', breakdown: 'm + <span class="accent-text">iss</span>', rule: 'CVCC Word • -iss family', km: 'នឹក / ខកខាន (v)', emoji: '💌', sentenceEn: 'I [m]iss my friends on Sunday.', sentenceKm: 'ខ្ញុំនឹកមិត្តភក្តិរបស់ខ្ញុំនៅថ្ងៃអាទិត្យ។' },
+                    { label: 'this', speakText: 'this', breakdown: '<span class="accent-text">th</span> + is', rule: 'Digraph th + is', km: 'នេះ (pron/det)', emoji: '👉', sentenceEn: '[Th]is is my favorite pencil.', sentenceKm: 'នេះគឺជាខ្មៅដៃដែលខ្ញុំចូលចិត្តជាងគេ។' },
+                    { label: 'pig', speakText: 'pig', breakdown: 'p + <span class="accent-text">ig</span>', rule: 'CVC Word • -ig family', km: 'ជ្រូក (n)', emoji: '🐷', sentenceEn: 'The little [p]ig lives on the farm.', sentenceKm: 'កូនជ្រូកតូចរស់នៅក្នុងកសិដ្ឋាន។' },
+                    { label: 'till', speakText: 'till', breakdown: 't + <span class="accent-text">ill</span>', rule: 'CVCC Word • -ill family', km: 'រហូតដល់ (prep/conj)', emoji: '⏰', sentenceEn: 'We study [t]ill four o’clock.', sentenceKm: 'ពួកយើងរៀនរហូតដល់ម៉ោងបួន។' },
+                    { label: 'risk', speakText: 'risk', breakdown: 'r + <span class="accent-text">isk</span>', rule: 'CVCC Word • -isk family', km: 'ហានិភ័យ / ប្រថុយ (n/v)', emoji: '⚠️', sentenceEn: 'Wear a helmet so there is no [r]isk.', sentenceKm: 'ពាក់មួកសុវត្ថិភាពដើម្បីកុំឱ្យមានហានិភ័យ។' },
+                    { label: 'twins', speakText: 'twins', breakdown: '<span class="accent-text">tw</span> + ins', rule: 'CCVCC Word • -in family', km: 'កូនភ្លោះ (n)', emoji: '👯', sentenceEn: 'The [tw]ins wear matching shirts.', sentenceKm: 'កូនភ្លោះទាំងពីរពាក់អាវដូចគ្នា។' }
+                ]
+            },
+            // =========================================================================
+            // NEW LESSON 7: Short "e" Sound
+            // =========================================================================
+            {
+                id: 'short-e-sound',
+                tabEn: '7. Short "e"',
+                tabKm: 'សំឡេងស្រៈ e',
+                pageBadge: 'Lesson 7 • Short "e" Sound',
+                titleEn: 'Short "e" Sound (Word Families & Words)',
+                titleKm: 'មេរៀនទី៧៖ សំឡេងស្រៈ e ខ្លី (Short "e" Sound)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Word Families / Rimes (-et, -eg, -em, -en, -ell, -ep, -ed)',
+                        groupNameKm: 'ក្រុមពាក្យចុងចួនស្រៈ e',
+                        items: [
+                            { label: '-et', speakText: 'et, net, wet, pet', breakdown: 'n<span class="accent-text">et</span> • w<span class="accent-text">et</span> • p<span class="accent-text">et</span>', rule: '-et Word Family', km: 'ពាក្យចុង -et (អ៊ែត)', emoji: '🥅', sentenceEn: 'My [p]et dog got [w]et near the [n]et.', sentenceKm: 'ឆ្កែចិញ្ចឹមរបស់ខ្ញុំទទឹកនៅជិតសំណាញ់។' },
+                            { label: '-eg', speakText: 'eg, leg, beg, peg', breakdown: 'l<span class="accent-text">eg</span> • b<span class="accent-text">eg</span> • p<span class="accent-text">eg</span>', rule: '-eg Word Family', km: 'ពាក្យចុង -eg (អ៊ែហ្គ)', emoji: '🦵', sentenceEn: 'The dog stands on one [l]eg to [b]eg.', sentenceKm: 'ឆ្កែឈរជើងមួយដើម្បីសុំចំណី។' },
+                            { label: '-em', speakText: 'em, gem, hem, stem', breakdown: 'g<span class="accent-text">em</span> • h<span class="accent-text">em</span> • st<span class="accent-text">em</span>', rule: '-em Word Family', km: 'ពាក្យចុង -em (អ៊ែម)', emoji: '💎', sentenceEn: 'Look at the green [st]em and shiny [g]em.', sentenceKm: 'មើលដើមផ្កាពណ៌បៃតង និងត្បូងដ៏ភ្លឺចែងចាំង។' },
+                            { label: '-en', speakText: 'en, hen, pen, ten', breakdown: 'h<span class="accent-text">en</span> • p<span class="accent-text">en</span> • t<span class="accent-text">en</span>', rule: '-en Word Family', km: 'ពាក្យចុង -en (អ៊ែន)', emoji: '🐔', sentenceEn: 'The [h]en has [t]en little chicks.', sentenceKm: 'មេមាន់មានកូនមាន់តូចៗដប់ក្បាល។' },
+                            { label: '-ell', speakText: 'ell, bell, fell, tell', breakdown: 'b<span class="accent-text">ell</span> • f<span class="accent-text">ell</span> • t<span class="accent-text">ell</span>', rule: '-ell Word Family', km: 'ពាក្យចុង -ell (អ៊ែល)', emoji: '🔔', sentenceEn: 'Ring the school [b]ell loud and well.', sentenceKm: 'ទូងជួងសាលាឱ្យឮខ្លាំង និងល្អ។' },
+                            { label: '-ep', speakText: 'ep, step, pep', breakdown: 'st<span class="accent-text">ep</span> • p<span class="accent-text">ep</span>', rule: '-ep Word Family', km: 'ពាក្យចុង -ep (អ៊ែប)', emoji: '👣', sentenceEn: 'Take one careful [st]ep up the stairs.', sentenceKm: 'ឈានជើងមួយជំហានដោយប្រុងប្រយ័ត្នឡើងជណ្តើរ។' },
+                            { label: '-ed', speakText: 'ed, bed, red, fed', breakdown: 'b<span class="accent-text">ed</span> • r<span class="accent-text">ed</span> • f<span class="accent-text">ed</span>', rule: '-ed Word Family', km: 'ពាក្យចុង -ed (អ៊ែដ)', emoji: '🛏️', sentenceEn: 'I have a cozy [r]ed [b]ed.', sentenceKm: 'ខ្ញុំមានគ្រែគេងពណ៌ក្រហមដ៏កក់ក្តៅមួយ។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Short "e" Words (21 Words)',
+                        groupNameKm: 'ពាក្យប្រើសំឡេងស្រៈ e',
+                        items: [
+                            { label: 'let', speakText: 'let', breakdown: 'l + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'អនុញ្ញាត / ឱ្យ (v)', emoji: '🤝', sentenceEn: 'Please [l]et me help you carry that.', sentenceKm: 'សូមអនុញ្ញាតឱ្យខ្ញុំជួយយួររបស់នោះ។' },
+                            { label: 'get', speakText: 'get', breakdown: 'g + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'ទទួលបាន / យក (v)', emoji: '🎁', sentenceEn: 'I [g]et a gold star from my teacher.', sentenceKm: 'ខ្ញុំទទួលបានផ្កាយមាសពីគ្រូរបស់ខ្ញុំ។' },
+                            { label: 'bed', speakText: 'bed', breakdown: 'b + <span class="accent-text">ed</span>', rule: 'CVC • -ed family', km: 'គ្រែគេង (n)', emoji: '🛏️', sentenceEn: 'I go to [b]ed at nine o’clock.', sentenceKm: 'ខ្ញុំចូលគេងនៅម៉ោងប្រាំបួន។' },
+                            { label: 'set', speakText: 'set', breakdown: 's + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'រៀបចំ / ឈុត (v/n)', emoji: '🍽️', sentenceEn: 'We [s]et the plates on the table.', sentenceKm: 'ពួកយើងរៀបចំចាននៅលើតុ។' },
+                            { label: 'net', speakText: 'net', breakdown: 'n + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'សំណាញ់ (n)', emoji: '🥅', sentenceEn: 'Catch the butterfly with a [n]et.', sentenceKm: 'ចាប់មេអំបៅដោយប្រើសំណាញ់។' },
+                            { label: 'wet', speakText: 'wet', breakdown: 'w + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'ទទឹក / សើម (adj)', emoji: '🌧️', sentenceEn: 'My umbrella is [w]et from the rain.', sentenceKm: 'ឆ័ត្ររបស់ខ្ញុំទទឹកដោយសារភ្លៀង។' },
+                            { label: 'met', speakText: 'met', breakdown: 'm + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'បានជួប (v)', emoji: '👋', sentenceEn: 'I [m]et my best friend at school.', sentenceKm: 'ខ្ញុំបានជួបមិត្តល្អបំផុតរបស់ខ្ញុំនៅសាលា។' },
+                            { label: 'red', speakText: 'red', breakdown: 'r + <span class="accent-text">ed</span>', rule: 'CVC • -ed family', km: 'ពណ៌ក្រហម (adj)', emoji: '🍎', sentenceEn: 'She eats a sweet [r]ed apple.', sentenceKm: 'នាងញ៉ាំផ្លែប៉ោមពណ៌ក្រហមផ្អែម។' },
+                            { label: 'hen', speakText: 'hen', breakdown: 'h + <span class="accent-text">en</span>', rule: 'CVC • -en family', km: 'មេមាន់ (n)', emoji: '🐔', sentenceEn: 'The brown [h]en lays fresh eggs.', sentenceKm: 'មេមាន់ពណ៌ត្នោតពងបានស៊ុតថ្មីៗ។' },
+                            { label: 'went', speakText: 'went', breakdown: 'w + <span class="accent-text">ent</span>', rule: 'CVCC • -ent family', km: 'បានទៅ (v)', emoji: '🚶', sentenceEn: 'We [w]ent to the zoo yesterday.', sentenceKm: 'ពួកយើងបានទៅសួនសត្វកាលពីម្សិលមិញ។' },
+                            { label: 'sent', speakText: 'sent', breakdown: 's + <span class="accent-text">ent</span>', rule: 'CVCC • -ent family', km: 'បានផ្ញើ (v)', emoji: '✉️', sentenceEn: 'Mom [s]ent a nice letter to Grandma.', sentenceKm: 'ម៉ាក់បានផ្ញើសំបុត្រដ៏ល្អមួយទៅលោកយាយ។' },
+                            { label: 'bend', speakText: 'bend', breakdown: 'b + <span class="accent-text">end</span>', rule: 'CVCC • -end family', km: 'ពត់ / កោង (v)', emoji: '🤸', sentenceEn: 'Can you [b]end your knees and jump?', sentenceKm: 'តើអ្នកអាចបន្ទន់ជង្គង់ហើយលោតបានទេ?' },
+                            { label: 'tent', speakText: 'tent', breakdown: 't + <span class="accent-text">ent</span>', rule: 'CVCC • -ent family', km: 'តង់បោះជំរំ (n)', emoji: '⛺', sentenceEn: 'We sleep inside a big [t]ent.', sentenceKm: 'ពួកយើងគេងនៅក្នុងតង់ធំមួយ។' },
+                            { label: 'step', speakText: 'step', breakdown: '<span class="accent-text">st</span> + ep', rule: 'CCVC • -ep family', km: 'ជំហាន / កាំជណ្តើរ (n/v)', emoji: '🪜', sentenceEn: 'Watch your [st]ep on the wet floor.', sentenceKm: 'ប្រយ័ត្នជំហានរបស់អ្នកនៅលើឥដ្ឋសើម។' },
+                            { label: 'bell', speakText: 'bell', breakdown: 'b + <span class="accent-text">ell</span>', rule: 'CVCC • -ell family', km: 'ជួង / កណ្តឹង (n)', emoji: '🔔', sentenceEn: 'The morning [b]ell rings for class.', sentenceKm: 'ជួងពេលព្រឹករោទ៍សម្រាប់ចូលរៀន។' },
+                            { label: 'fell', speakText: 'fell', breakdown: 'f + <span class="accent-text">ell</span>', rule: 'CVCC • -ell family', km: 'បានធ្លាក់ / ដួល (v)', emoji: '🍂', sentenceEn: 'A yellow leaf [f]ell from the tree.', sentenceKm: 'ស្លឹកឈើពណ៌លឿងមួយសន្លឹកបានជ្រុះពីដើមឈើ។' },
+                            { label: 'melt', speakText: 'melt', breakdown: 'm + <span class="accent-text">elt</span>', rule: 'CVCC • -elt family', km: 'រលាយ (v)', emoji: '🍦', sentenceEn: 'Ice cream will [m]elt in the hot sun.', sentenceKm: 'ការ៉េមនឹងរលាយនៅក្រោមពន្លឺថ្ងៃក្តៅ។' },
+                            { label: 'rent', speakText: 'rent', breakdown: 'r + <span class="accent-text">ent</span>', rule: 'CVCC • -ent family', km: 'ជួល (v/n)', emoji: '🏠', sentenceEn: 'They [r]ent a small boat at the lake.', sentenceKm: 'ពួកគេជួលទូកតូចមួយនៅឯបឹង។' },
+                            { label: 'fishing-net', speakText: 'fishing net', breakdown: 'fish + ing - <span class="accent-text">net</span>', rule: 'Compound Word • -et', km: 'សំណាញ់ត្រី (n)', emoji: '🕸️', sentenceEn: 'The fisherman throws his [fishing-net] in the river.', sentenceKm: 'អ្នកនេសាទបង់សំណាញ់ត្រីរបស់គាត់ចូលក្នុងទន្លេ។' },
+                            { label: 'vet', speakText: 'vet', breakdown: 'v + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'ពេទ្យសត្វ (n)', emoji: '🩺', sentenceEn: 'The kind [v]et helps the sick puppy.', sentenceKm: 'ពេទ្យសត្វដ៏ចិត្តល្អជួយកូនឆ្កែដែលឈឺ។' },
+                            { label: 'pet', speakText: 'pet', breakdown: 'p + <span class="accent-text">et</span>', rule: 'CVC • -et family', km: 'សត្វចិញ្ចឹម (n)', emoji: '🐶', sentenceEn: 'I love playing with my [p]et cat.', sentenceKm: 'ខ្ញុំចូលចិត្តលេងជាមួយឆ្មាចិញ្ចឹមរបស់ខ្ញុំ។' }
+                        ]
+                    }
+                ]
+            },
+            // =========================================================================
+            // NEW LESSON 8: Short "o" Sound
+            // =========================================================================
+            {
+                id: 'short-o-sound',
+                tabEn: '8. Short "o"',
+                tabKm: 'សំឡេងស្រៈ o',
+                pageBadge: 'Lesson 8 • Short "o" Sound',
+                titleEn: 'Short "o" Sound (Word Families & Words)',
+                titleKm: 'មេរៀនទី៨៖ សំឡេងស្រៈ o ខ្លី (Short "o" Sound)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Word Families / Rimes (-op, -ot, -on, -og, -os, -ob, -od, -ock, -off)',
+                        groupNameKm: 'ក្រុមពាក្យចុងចួនស្រៈ o',
+                        items: [
+                            { label: '-op', speakText: 'op, top, hop, pop', breakdown: 't<span class="accent-text">op</span> • h<span class="accent-text">op</span> • p<span class="accent-text">op</span>', rule: '-op Word Family', km: 'ពាក្យចុង -op (អប)', emoji: '🐰', sentenceEn: 'Watch the bunny [h]op to the [t]op.', sentenceKm: 'មើលកូនទន្សាយលោតឡើងទៅលើកំពូល។' },
+                            { label: '-ot', speakText: 'ot, hot, dot, not', breakdown: 'h<span class="accent-text">ot</span> • d<span class="accent-text">ot</span> • n<span class="accent-text">ot</span>', rule: '-ot Word Family', km: 'ពាក្យចុង -ot (អត)', emoji: '☕', sentenceEn: 'Do [n]ot touch the [h]ot pot!', sentenceKm: 'កុំប៉ះឆ្នាំងក្តៅឱ្យសោះ!' },
+                            { label: '-on', speakText: 'on, upon, go-on', breakdown: '<span class="accent-text">on</span> • up<span class="accent-text">on</span>', rule: '-on Word Family', km: 'ពាក្យចុង -on (អន)', emoji: '🔛', sentenceEn: 'Put your shoes [on] and go out.', sentenceKm: 'ពាក់ស្បែកជើងរបស់អ្នករួចចេញទៅក្រៅ។' },
+                            { label: '-og', speakText: 'og, dog, frog, log', breakdown: 'd<span class="accent-text">og</span> • fr<span class="accent-text">og</span> • l<span class="accent-text">og</span>', rule: '-og Word Family', km: 'ពាក្យចុង -og (អហ្គ)', emoji: '🐕', sentenceEn: 'A [fr]og and a [d]og sit by a [l]og.', sentenceKm: 'កង្កែប និងឆ្កែអង្គុយក្បែរគល់ឈើ។' },
+                            { label: '-os', speakText: 'os, boss, moss, toss', breakdown: 'b<span class="accent-text">oss</span> • t<span class="accent-text">oss</span>', rule: '-os / -oss Family', km: 'ពាក្យចុង -os (អស)', emoji: '🏀', sentenceEn: 'Toss the soft ball to your friend.', sentenceKm: 'បោះបាល់ទន់ទៅឱ្យមិត្តភក្តិរបស់អ្នក។' },
+                            { label: '-ob', speakText: 'ob, rob, job, sob', breakdown: 'r<span class="accent-text">ob</span> • j<span class="accent-text">ob</span> • s<span class="accent-text">ob</span>', rule: '-ob Word Family', km: 'ពាក្យចុង -ob (អប)', emoji: '🌽', sentenceEn: 'You did a great [j]ob reading today!', sentenceKm: 'អ្នកធ្វើបានល្អណាស់ក្នុងការអានថ្ងៃនេះ!' },
+                            { label: '-od', speakText: 'od, nod, pod, rod', breakdown: 'n<span class="accent-text">od</span> • p<span class="accent-text">od</span> • r<span class="accent-text">od</span>', rule: '-od Word Family', km: 'ពាក្យចុង -od (អដ)', emoji: '🎣', sentenceEn: 'He holds a long fishing [r]od.', sentenceKm: 'គាត់កាន់ដងសន្ទូចស្ទូចត្រីវែងមួយ។' },
+                            { label: '-ock', speakText: 'ock, rock, sock, block', breakdown: 'r<span class="accent-text">ock</span> • s<span class="accent-text">ock</span> • bl<span class="accent-text">ock</span>', rule: '-ock Word Family', km: 'ពាក្យចុង -ock (អក)', emoji: '🧦', sentenceEn: 'I put a [bl]ock next to the [r]ock.', sentenceKm: 'ខ្ញុំដាក់ដុំឈើនៅជាប់នឹងដុំថ្ម។' },
+                            { label: '-off', speakText: 'off, turn off, take off', breakdown: '<span class="accent-text">off</span>', rule: '-off Word Family', km: 'ពាក្យចុង -off (អហ្វ)', emoji: '💡', sentenceEn: 'Please turn [off] the light before leaving.', sentenceKm: 'សូមបិទភ្លើងមុនពេលចាកចេញ។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Short "o" Words (25 Words)',
+                        groupNameKm: 'ពាក្យប្រើសំឡេងស្រៈ o',
+                        items: [
+                            { label: 'top', speakText: 'top', breakdown: 't + <span class="accent-text">op</span>', rule: 'CVC • -op family', km: 'កំពូល / កូនខាង (n)', emoji: '🔝', sentenceEn: 'The bird sits at the [t]op of the tree.', sentenceKm: 'សត្វចាបទំនៅលើកំពូលដើមឈើ។' },
+                            { label: 'rob', speakText: 'rob', breakdown: 'r + <span class="accent-text">ob</span>', rule: 'CVC • -ob family', km: 'ប្លន់ / លួច (v)', emoji: '🚨', sentenceEn: 'A bad fox tries to [r]ob the hen house.', sentenceKm: 'កញ្ជ្រោងអាក្រក់ព្យាយាមលួចមាន់ក្នុងទ្រុង។' },
+                            { label: 'pop', speakText: 'pop', breakdown: 'p + <span class="accent-text">op</span>', rule: 'CVC • -op family', km: 'ផ្ទុះ (ប៉ុប) (v)', emoji: '🎈', sentenceEn: 'Do not [p]op the red balloon!', sentenceKm: 'កុំធ្វើឱ្យប៉េងប៉ោងក្រហមផ្ទុះ!' },
+                            { label: 'hop', speakText: 'hop', breakdown: 'h + <span class="accent-text">op</span>', rule: 'CVC • -op family', km: 'លោត (v)', emoji: '🐇', sentenceEn: 'Little rabbits love to [h]op in the grass.', sentenceKm: 'កូនទន្សាយតូចៗចូលចិត្តលោតលើស្មៅ។' },
+                            { label: 'box', speakText: 'box', breakdown: 'b + <span class="accent-text">ox</span>', rule: 'CVC • -ox family', km: 'ប្រអប់ (n)', emoji: '📦', sentenceEn: 'Put your toys inside the [b]ox.', sentenceKm: 'ដាក់ប្រដាប់ក្មេងលេងរបស់អ្នកចូលក្នុងប្រអប់។' },
+                            { label: 'fox', speakText: 'fox', breakdown: 'f + <span class="accent-text">ox</span>', rule: 'CVC • -ox family', km: 'កញ្ជ្រោង (n)', emoji: '🦊', sentenceEn: 'The orange [f]ox has a bushy tail.', sentenceKm: 'កញ្ជ្រោងពណ៌ទឹកក្រូចមានកន្ទុយសំពោង។' },
+                            { label: 'rock', speakText: 'rock', breakdown: 'r + <span class="accent-text">ock</span>', rule: 'CVCC • -ock family', km: 'ដុំថ្ម (n)', emoji: '🪨', sentenceEn: 'A green frog sits on a big [r]ock.', sentenceKm: 'កង្កែបពណ៌បៃតងអង្គុយលើដុំថ្មធំមួយ។' },
+                            { label: 'hot', speakText: 'hot', breakdown: 'h + <span class="accent-text">ot</span>', rule: 'CVC • -ot family', km: 'ក្តៅ (adj)', emoji: '☀️', sentenceEn: 'Drink cold water on a [h]ot day.', sentenceKm: 'ផឹកទឹកត្រជាក់នៅថ្ងៃដែលក្តៅ។' },
+                            { label: 'dot', speakText: 'dot', breakdown: 'd + <span class="accent-text">ot</span>', rule: 'CVC • -ot family', km: 'ចំណុច (n)', emoji: '🔴', sentenceEn: 'Draw a blue [d]ot on the paper.', sentenceKm: 'គូសចំណុចពណ៌ខៀវមួយនៅលើក្រដាស។' },
+                            { label: 'not', speakText: 'not', breakdown: 'n + <span class="accent-text">ot</span>', rule: 'CVC • -ot family', km: 'មិន / ទេ (adv)', emoji: '🚫', sentenceEn: 'It is [n]ot raining right now.', sentenceKm: 'មេឃមិនភ្លៀងទេនៅពេលនេះ។' },
+                            { label: 'bot', speakText: 'bot', breakdown: 'b + <span class="accent-text">ot</span>', rule: 'CVC • -ot family', km: 'មនុស្សយន្ត (n)', emoji: '🤖', sentenceEn: 'The little [b]ot can walk and beep.', sentenceKm: 'មនុស្សយន្តតូចអាចដើរ និងបន្លឺសំឡេងបាន។' },
+                            { label: 'sock', speakText: 'sock', breakdown: 's + <span class="accent-text">ock</span>', rule: 'CVCC • -ock family', km: 'ស្រោមជើង (n)', emoji: '🧦', sentenceEn: 'I put a clean [s]ock on each foot.', sentenceKm: 'ខ្ញុំពាក់ស្រោមជើងស្អាតមួយនៅជើងម្ខាងៗ។' },
+                            { label: 'block', speakText: 'block', breakdown: '<span class="accent-text">bl</span> + ock', rule: 'CCVCC • -ock family', km: 'ដុំឈើ / ដុំតំឡើង (n)', emoji: '🧱', sentenceEn: 'Build a tall tower with each [bl]ock.', sentenceKm: 'សង់ប៉មខ្ពស់មួយដោយប្រើដុំតំឡើងនីមួយៗ។' },
+                            { label: 'mock', speakText: 'mock', breakdown: 'm + <span class="accent-text">ock</span>', rule: 'CVCC • -ock family', km: 'ចំអក / ធ្វើត្រាប់ (v)', emoji: '😜', sentenceEn: 'Good friends never [m]ock each other.', sentenceKm: 'មិត្តល្អមិនដែលចំអកឱ្យគ្នាទៅវិញទៅមកទេ។' },
+                            { label: 'dog', speakText: 'dog', breakdown: 'd + <span class="accent-text">og</span>', rule: 'CVC • -og family', km: 'សុនខ / ឆ្កែ (n)', emoji: '🐕', sentenceEn: 'The friendly [d]og wags its tail.', sentenceKm: 'ឆ្កែដ៏រួសរាយគ្រវីកន្ទុយរបស់វា។' },
+                            { label: 'teapot', speakText: 'teapot', breakdown: 'tea + p<span class="accent-text">ot</span>', rule: 'Compound • -ot', km: 'ប៉ាន់តែ (n)', emoji: '🫖', sentenceEn: 'Mom pours warm tea from the [teapot].', sentenceKm: 'ម៉ាក់ចាក់តែក្តៅឧណ្ហៗចេញពីប៉ាន់តែ។' },
+                            { label: 'cannot', speakText: 'cannot', breakdown: 'can + n<span class="accent-text">ot</span>', rule: 'Compound • -ot', km: 'មិនអាច (v)', emoji: '🙅', sentenceEn: 'A fish [cannot] fly in the sky.', sentenceKm: 'ត្រីមិនអាចហើរនៅលើមេឃបានទេ។' },
+                            { label: 'pilot', speakText: 'pilot', breakdown: 'pi + l<span class="accent-text">ot</span>', rule: '2-Syllable • -ot', km: 'អ្នកបើកយន្តហោះ (n)', emoji: '✈️', sentenceEn: 'The [pilot] flies the big airplane safely.', sentenceKm: 'អ្នកបើកយន្តហោះបើកយន្តហោះធំដោយសុវត្ថិភាព។' },
+                            { label: 'wrong', speakText: 'wrong', breakdown: '<span class="accent-text">wr</span> + ong', rule: 'Digraph wr • -ong', km: 'ខុស (adj)', emoji: '❌', sentenceEn: 'Fix the [wr]ong answer with an eraser.', sentenceKm: 'កែចម្លើយដែលខុសដោយប្រើជ័រលុប។' },
+                            { label: 'thong', speakText: 'thong', breakdown: '<span class="accent-text">th</span> + ong', rule: 'Digraph th • -ong', km: 'ស្បែកជើងផ្ទាត់ (n)', emoji: '🩴', sentenceEn: 'He wears a [th]ong sandal to the beach.', sentenceKm: 'គាត់ពាក់ស្បែកជើងផ្ទាត់ទៅឆ្នេរសមុទ្រ។' },
+                            { label: 'song', speakText: 'song', breakdown: 's + <span class="accent-text">ong</span>', rule: 'CVCC • -ong family', km: 'បទចម្រៀង (n)', emoji: '🎵', sentenceEn: 'We sing a happy [s]ong in class.', sentenceKm: 'ពួកយើងច្រៀងបទចម្រៀងសប្បាយរីករាយនៅក្នុងថ្នាក់។' },
+                            { label: 'belong', speakText: 'belong', breakdown: 'be + l<span class="accent-text">ong</span>', rule: '2-Syllable • -ong', km: 'ជារបស់ / ជាកម្មសិទ្ធិ (v)', emoji: '🎒', sentenceEn: 'These pencils [belong] to our classroom.', sentenceKm: 'ខ្មៅដៃទាំងនេះជារបស់ថ្នាក់រៀនយើង។' },
+                            { label: 'long', speakText: 'long', breakdown: 'l + <span class="accent-text">ong</span>', rule: 'CVCC • -ong family', km: 'វែង (adj)', emoji: '🐍', sentenceEn: 'A giraffe has a very [l]ong neck.', sentenceKm: 'សត្វកវែងមានកវែងណាស់។' },
+                            { label: 'go-on', speakText: 'go on', breakdown: 'go - <span class="accent-text">on</span>', rule: 'Phrasal Verb • -on', km: 'បន្តទៅមុខ (v)', emoji: '▶️', sentenceEn: 'Please [go-on] reading the next page.', sentenceKm: 'សូមបន្តអានទំព័របន្ទាប់ទៀត។' },
+                            { label: 'hand-on', speakText: 'hand on', breakdown: 'hand - <span class="accent-text">on</span>', rule: 'Phrase • -on', km: 'ដាក់ដៃលើ / អនុវត្តផ្ទាល់ (phr)', emoji: '✋', sentenceEn: 'Keep your [hand-on] the rail on the stairs.', sentenceKm: 'ដាក់ដៃរបស់អ្នកលើបង្កាន់ដៃនៅពេលដើរលើជណ្តើរ។' }
+                        ]
+                    }
+                ]
+            },
+            // =========================================================================
+            // NEW LESSON 9: Short "u" Sound
+            // =========================================================================
+            {
+                id: 'short-u-sound',
+                tabEn: '9. Short "u"',
+                tabKm: 'សំឡេងស្រៈ u',
+                pageBadge: 'Lesson 9 • Short "u" Sound',
+                titleEn: 'Short "u" Sound (Word Families & Words)',
+                titleKm: 'មេរៀនទី៩៖ សំឡេងស្រៈ u ខ្លី (Short "u" Sound)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Word Families / Rimes (-ug, -uck, -um, -un, -ull, -up, -ut)',
+                        groupNameKm: 'ក្រុមពាក្យចុងចួនស្រៈ u',
+                        items: [
+                            { label: '-ug', speakText: 'ug, rug, bug, hug', breakdown: 'r<span class="accent-text">ug</span> • b<span class="accent-text">ug</span> • h<span class="accent-text">ug</span>', rule: '-ug Word Family', km: 'ពាក្យចុង -ug (អាក់ហ្គ)', emoji: '🐞', sentenceEn: 'A tiny [b]ug sits on the [r]ug.', sentenceKm: 'សត្វល្អិតតូចមួយទំនៅលើកម្រាលព្រំ។' },
+                            { label: '-uck', speakText: 'uck, duck, luck, truck', breakdown: 'd<span class="accent-text">uck</span> • l<span class="accent-text">uck</span> • tr<span class="accent-text">uck</span>', rule: '-uck Word Family', km: 'ពាក្យចុង -uck (អាក់)', emoji: '🦆', sentenceEn: 'The yellow [d]uck swims with good [l]uck.', sentenceKm: 'ទាពណ៌លឿងហែលទឹកដោយសំណាងល្អ។' },
+                            { label: '-um', speakText: 'um, drum, gum, sum', breakdown: 'dr<span class="accent-text">um</span> • s<span class="accent-text">um</span> • h<span class="accent-text">um</span>', rule: '-um Word Family', km: 'ពាក្យចុង -um (អាំ)', emoji: '🥁', sentenceEn: 'Beat the [dr]um and [h]um a tune.', sentenceKm: 'វាយស្គរហើយគ្រហឹមច្រៀងតាមភ្លេង។' },
+                            { label: '-un', speakText: 'un, sun, fun, run', breakdown: 's<span class="accent-text">un</span> • f<span class="accent-text">un</span> • r<span class="accent-text">un</span>', rule: '-un Word Family', km: 'ពាក្យចុង -un (អាន់)', emoji: '☀️', sentenceEn: 'We [r]un and have [f]un in the [s]un.', sentenceKm: 'ពួកយើងរត់ និងលេងសប្បាយក្រោមពន្លឺថ្ងៃ។' },
+                            { label: '-ull', speakText: 'ull, full, pull, bull', breakdown: 'f<span class="accent-text">ull</span> • p<span class="accent-text">ull</span> • b<span class="accent-text">ull</span>', rule: '-ull Word Family', km: 'ពាក្យចុង -ull (អ៊ុល)', emoji: '🥛', sentenceEn: 'My glass is [f]ull of fresh milk.', sentenceKm: 'កែវរបស់ខ្ញុំពេញទៅដោយទឹកដោះគោស្រស់។' },
+                            { label: '-up', speakText: 'up, cup, pup', breakdown: 'c<span class="accent-text">up</span> • p<span class="accent-text">up</span> • <span class="accent-text">up</span>', rule: '-up Word Family', km: 'ពាក្យចុង -up (អាប់)', emoji: '🥤', sentenceEn: 'Pick [up] your blue [c]up.', sentenceKm: 'លើកពែងពណ៌ខៀវរបស់អ្នកឡើង។' },
+                            { label: '-ut', speakText: 'ut, cut, hut, nut', breakdown: 'c<span class="accent-text">ut</span> • h<span class="accent-text">ut</span> • n<span class="accent-text">ut</span>', rule: '-ut Word Family', km: 'ពាក្យចុង -ut (អាត់)', emoji: '✂️', sentenceEn: 'Use scissors to [c]ut the paper.', sentenceKm: 'ប្រើកន្ត្រៃដើម្បីកាត់ក្រដាស។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Short "u" Words (21 Words)',
+                        groupNameKm: 'ពាក្យប្រើសំឡេងស្រៈ u',
+                        items: [
+                            { label: 'but', speakText: 'but', breakdown: 'b + <span class="accent-text">ut</span>', rule: 'CVC • -ut family', km: 'ប៉ុន្តែ (conj)', emoji: '↔️', sentenceEn: 'The box is small [b]ut very heavy.', sentenceKm: 'ប្រអប់នេះតូច ប៉ុន្តែធ្ងន់ណាស់។' },
+                            { label: 'shut', speakText: 'shut', breakdown: '<span class="accent-text">sh</span> + ut', rule: 'CCVC • -ut family', km: 'បិទ (v)', emoji: '🚪', sentenceEn: 'Please [sh]ut the door gently.', sentenceKm: 'សូមបិទទ្វារថ្នមៗ។' },
+                            { label: 'mud', speakText: 'mud', breakdown: 'm + <span class="accent-text">ud</span>', rule: 'CVC • -ud family', km: 'ភក់ (n)', emoji: '🟤', sentenceEn: 'The pig likes to roll in the [m]ud.', sentenceKm: 'ជ្រូកចូលចិត្តននៀលក្នុងភក់។' },
+                            { label: 'peanut', speakText: 'peanut', breakdown: 'pea + n<span class="accent-text">ut</span>', rule: 'Compound • -ut', km: 'សណ្តែកដី (n)', emoji: '🥜', sentenceEn: 'The elephant eats a crunchy [peanut].', sentenceKm: 'សត្វដំរីស៊ីសណ្តែកដីស្រួយ។' },
+                            { label: 'rug', speakText: 'rug', breakdown: 'r + <span class="accent-text">ug</span>', rule: 'CVC • -ug family', km: 'កម្រាលព្រំ (n)', emoji: '🧶', sentenceEn: 'We sit together on the soft [r]ug.', sentenceKm: 'ពួកយើងអង្គុយជាមួយគ្នានៅលើកម្រាលព្រំទន់។' },
+                            { label: 'gun', speakText: 'gun', breakdown: 'g + <span class="accent-text">un</span>', rule: 'CVC • -un family', km: 'កាំភ្លើងជ័រ / កាំភ្លើង (n)', emoji: '🔫', sentenceEn: 'The toy water [g]un sprays cool water.', sentenceKm: 'កាំភ្លើងបាញ់ទឹកប្រដាប់ក្មេងលេងបាញ់ទឹកត្រជាក់។' },
+                            { label: 'fun', speakText: 'fun', breakdown: 'f + <span class="accent-text">un</span>', rule: 'CVC • -un family', km: 'សប្បាយ (n/adj)', emoji: '🎉', sentenceEn: 'Reading English stories is so much [f]un!', sentenceKm: 'ការអានរឿងនិទានភាសាអង់គ្លេសពិតជាសប្បាយណាស់!' },
+                            { label: 'sun', speakText: 'sun', breakdown: 's + <span class="accent-text">un</span>', rule: 'CVC • -un family', km: 'ព្រះអាទិត្យ (n)', emoji: '☀️', sentenceEn: 'The warm [s]un shines in the morning.', sentenceKm: 'ព្រះអាទិត្យកក់ក្តៅរះនៅពេលព្រឹក។' },
+                            { label: 'bunch', speakText: 'bunch', breakdown: 'b + <span class="accent-text">unch</span>', rule: 'CVCC • -unch family', km: 'ចង្កោម / បាច់ (n)', emoji: '🍌', sentenceEn: 'Mom bought a [b]unch of yellow bananas.', sentenceKm: 'ម៉ាក់បានទិញចេកទុំពណ៌លឿងមួយស្និត។' },
+                            { label: 'trunk', speakText: 'trunk', breakdown: '<span class="accent-text">tr</span> + unk', rule: 'CCVCC • -unk (trunct)', km: 'ប្រមោយដំរី / ដើមឈើ (n)', emoji: '🐘', sentenceEn: 'An elephant drinks water with its [tr]unk.', sentenceKm: 'សត្វដំរីផឹកទឹកដោយប្រើប្រមោយរបស់វា។' },
+                            { label: 'cut', speakText: 'cut', breakdown: 'c + <span class="accent-text">ut</span>', rule: 'CVC • -ut family', km: 'កាត់ / ចិត (v)', emoji: '✂️', sentenceEn: 'Be careful when you [c]ut the fruit.', sentenceKm: 'សូមប្រុងប្រយ័ត្ននៅពេលអ្នកចិតផ្លែឈើ។' },
+                            { label: 'lucky', speakText: 'lucky', breakdown: 'l<span class="accent-text">uck</span> + y', rule: '2-Syllable • -uck', km: 'មានសំណាង (adj)', emoji: '🍀', sentenceEn: 'I feel [lucky] to have good friends.', sentenceKm: 'ខ្ញុំមានអារម្មណ៍ថាមានសំណាងដែលមានមិត្តល្អ។' },
+                            { label: 'duck', speakText: 'duck', breakdown: 'd + <span class="accent-text">uck</span>', rule: 'CVCC • -uck family', km: 'សត្វទា (n)', emoji: '🦆', sentenceEn: 'The white [d]uck says quack, quack!', sentenceKm: 'ទាពណ៌សស្រែក ក្វាកៗ!' },
+                            { label: 'muddy', speakText: 'muddy', breakdown: 'm<span class="accent-text">ud</span> + dy', rule: '2-Syllable • -ud', km: 'ប្រឡាក់ភក់ (adj)', emoji: '🥾', sentenceEn: 'Wash your [muddy] boots outside.', sentenceKm: 'លាងស្បែកជើងកវែងដែលប្រឡាក់ភក់នៅខាងក្រៅ។' },
+                            { label: 'Sunday', speakText: 'Sunday', breakdown: 'S<span class="accent-text">un</span> + day', rule: 'Compound • -un', km: 'ថ្ងៃអាទិត្យ (n)', emoji: '📅', sentenceEn: 'We visit Grandma every [Sunday].', sentenceKm: 'ពួកយើងទៅលេងលោកយាយរៀងរាល់ថ្ងៃអាទិត្យ។' },
+                            { label: 'nun', speakText: 'nun', breakdown: 'n + <span class="accent-text">un</span>', rule: 'CVC • -un family', km: 'ដូនជី / ដូនសីល (n)', emoji: '🙏', sentenceEn: 'The kind [nun] prays peacefully at the temple.', sentenceKm: 'ដូនជីដ៏ស្លូតបូតសូត្រធម៌យ៉ាងស្ងប់ស្ងាត់នៅវត្ត។' },
+                            { label: 'hunt', speakText: 'hunt', breakdown: 'h + <span class="accent-text">unt</span>', rule: 'CVCC • -unt family', km: 'បរបាញ់ / ស្វែងរក (v)', emoji: '🔎', sentenceEn: 'Owls [h]unt for food at night.', sentenceKm: 'សត្វទីទុយស្វែងរកចំណីនៅពេលយប់។' },
+                            { label: 'hunter', speakText: 'hunter', breakdown: 'h<span class="accent-text">unt</span> + er', rule: '2-Syllable • -unt', km: 'អ្នកប្រមាញ់ (n)', emoji: '🏹', sentenceEn: 'The [hunter] walks quietly in the forest.', sentenceKm: 'អ្នកប្រមាញ់ដើរយ៉ាងស្ងៀមស្ងាត់នៅក្នុងព្រៃ។' },
+                            { label: 'punch', speakText: 'punch', breakdown: 'p + <span class="accent-text">unch</span>', rule: 'CVCC • -unch family', km: 'ដាល់ / ទឹកផ្លែឈើក្រឡុក (v/n)', emoji: '🥊', sentenceEn: 'We drink sweet fruit [p]unch at the party.', sentenceKm: 'ពួកយើងផឹកទឹកផ្លែឈើក្រឡុកផ្អែមនៅក្នុងពិធីជប់លៀង។' },
+                            { label: 'number', speakText: 'number', breakdown: 'n<span class="accent-text">um</span> + ber', rule: '2-Syllable • -um', km: 'លេខ / ចំនួន (n)', emoji: '🔢', sentenceEn: 'Seven is my favorite [number].', sentenceKm: 'លេខប្រាំពីរគឺជាលេខដែលខ្ញុំចូលចិត្តជាងគេ។' },
+                            { label: 'lung', speakText: 'lung', breakdown: 'l + <span class="accent-text">ung</span>', rule: 'CVCC • -ung family', km: 'សួត (n)', emoji: '🫁', sentenceEn: 'Take a deep breath into each [l]ung.', sentenceKm: 'ដកដង្ហើមចូលឱ្យជ្រៅទៅក្នុងសួតនីមួយៗ។' }
+                        ]
+                    }
+                ]
+            },
+            // =========================================================================
+            // NEW LESSON 10: Long "ea, ee" Sound
+            // =========================================================================
+            {
+                id: 'long-ea-ee-sound',
+                tabEn: '10. "ea, ee"',
+                tabKm: 'សំឡេង ea, ee',
+                pageBadge: 'Lesson 10 • Long "ea, ee" Sound',
+                titleEn: 'Long "ea, ee" Sound (Word Families & Words)',
+                titleKm: 'មេរៀនទី១០៖ សំឡេងស្រៈវែង ea, ee (Long /iː/ Sound)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Word Families / Rimes (-eat, -eam, -eap, -eal, -eag)',
+                        groupNameKm: 'ក្រុមពាក្យចុងចួន ea / ee',
+                        items: [
+                            { label: '-eat', speakText: 'eat, beat, meat, seat', breakdown: 'b<span class="accent-text">eat</span> • m<span class="accent-text">eat</span> • s<span class="accent-text">eat</span>', rule: '-eat Word Family', km: 'ពាក្យចុង -eat (អ៊ីត)', emoji: '🍽️', sentenceEn: 'Take your [s]eat and [e]at your lunch.', sentenceKm: 'អង្គុយកន្លែងរបស់អ្នក ហើយញ៉ាំអាហារថ្ងៃត្រង់។' },
+                            { label: '-eam', speakText: 'eam, team, dream, cream', breakdown: 't<span class="accent-text">eam</span> • dr<span class="accent-text">eam</span> • cr<span class="accent-text">eam</span>', rule: '-eam Word Family', km: 'ពាក្យចុង -eam (អ៊ីម)', emoji: '⚽', sentenceEn: 'Our soccer [t]eam works well together.', sentenceKm: 'ក្រុមបាល់ទាត់របស់យើងសហការគ្នាបានយ៉ាងល្អ។' },
+                            { label: '-eap', speakText: 'eap, leap, heap, cheap', breakdown: 'l<span class="accent-text">eap</span> • h<span class="accent-text">eap</span> • ch<span class="accent-text">eap</span>', rule: '-eap Word Family', km: 'ពាក្យចុង -eap (អ៊ីប)', emoji: '🐸', sentenceEn: 'Watch the green frog [l]eap high!', sentenceKm: 'មើលកង្កែបពណ៌បៃតងលោតផ្លោះយ៉ាងខ្ពស់!' },
+                            { label: '-eal', speakText: 'eal, meal, peel, seal', breakdown: 'm<span class="accent-text">eal</span> • p<span class="accent-text">eel</span> • s<span class="accent-text">eal</span>', rule: '-eal / -eel Family', km: 'ពាក្យចុង -eal (អ៊ីល)', emoji: '🦭', sentenceEn: 'We enjoy a healthy family [m]eal.', sentenceKm: 'ពួកយើងរីករាយជាមួយអាហារជុំគ្រួសារដ៏ល្អចំពោះសុខភាព។' },
+                            { label: '-eag', speakText: 'eag, eagle, league', breakdown: '<span class="accent-text">eag</span>le • l<span class="accent-text">eag</span>ue', rule: '-eag Word Family', km: 'ពាក្យ -eag (អ៊ីហ្គ)', emoji: '🦅', sentenceEn: 'A strong [eag]le flies above the mountain.', sentenceKm: 'ឥន្ទ្រីដ៏រឹងមាំហើរពីលើកំពូលភ្នំ។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Long "ea, ee" Words (17 Words)',
+                        groupNameKm: 'ពាក្យប្រើសំឡេង ea និង ee',
+                        items: [
+                            { label: 'beat', speakText: 'beat', breakdown: 'b + <span class="accent-text">eat</span>', rule: 'CVVC • -eat family', km: 'វាយ / ចង្វាក់ (v/n)', emoji: '🥁', sentenceEn: 'He plays a steady [b]eat on the drum.', sentenceKm: 'គាត់វាយចង្វាក់ស្គរយ៉ាងទៀងទាត់។' },
+                            { label: 'teapot', speakText: 'teapot', breakdown: 't<span class="accent-text">ea</span> + pot', rule: 'Compound • ea', km: 'ប៉ាន់តែ (n)', emoji: '🫖', sentenceEn: 'The blue [teapot] is full of green tea.', sentenceKm: 'ប៉ាន់តែពណ៌ខៀវពេញទៅដោយតែបៃតង។' },
+                            { label: 'sea', speakText: 'sea', breakdown: 's + <span class="accent-text">ea</span>', rule: 'CVV • -ea family', km: 'សមុទ្រ (n)', emoji: '🌊', sentenceEn: 'Many colorful fish live in the [s]ea.', sentenceKm: 'ត្រីចម្រុះពណ៌ជាច្រើនរស់នៅក្នុងសមុទ្រ។' },
+                            { label: 'fee', speakText: 'fee', breakdown: 'f + <span class="accent-text">ee</span>', rule: 'CVV • -ee family', km: 'ថ្លៃសេវា / ថ្លៃសិក្សា (n)', emoji: '💵', sentenceEn: 'Dad pays the school [f]ee on time.', sentenceKm: 'ប៉ាបង់ថ្លៃសាលារៀនទាន់ពេលវេលា។' },
+                            { label: 'agree', speakText: 'agree', breakdown: 'a + gr<span class="accent-text">ee</span>', rule: '2-Syllable • -ee', km: 'យល់ព្រម (v)', emoji: '🤝', sentenceEn: 'I [agree] that reading every day is good.', sentenceKm: 'ខ្ញុំយល់ស្របថាការអានរៀងរាល់ថ្ងៃគឺល្អ។' },
+                            { label: 'tree', speakText: 'tree', breakdown: '<span class="accent-text">tr</span> + ee', rule: 'CCVV • -ee family', km: 'ដើមឈើ (n)', emoji: '🌳', sentenceEn: 'Sweet mangoes grow on that big [tr]ee.', sentenceKm: 'ផ្លែស្វាយផ្អែមដុះនៅលើដើមឈើធំនោះ។' },
+                            { label: 'flee', speakText: 'flee', breakdown: '<span class="accent-text">fl</span> + ee', rule: 'CCVV • -ee family', km: 'រត់គេចខ្លួន (v)', emoji: '🏃', sentenceEn: 'The mice [fl]ee when they see the cat.', sentenceKm: 'កណ្តុររត់គេចខ្លួននៅពេលពួកវាឃើញឆ្មា។' },
+                            { label: 'knee', speakText: 'knee', breakdown: '<span class="accent-text">kn</span> + ee', rule: 'Digraph kn • -ee', km: 'ក្បាលជង្គង់ (n)', emoji: '🦵', sentenceEn: 'She fell and scraped her [kn]ee.', sentenceKm: 'នាងបានដួលហើយរលាត់ក្បាលជង្គង់របស់នាង។' },
+                            { label: 'heel', speakText: 'heel', breakdown: 'h + <span class="accent-text">eel</span>', rule: 'CVVC • -eel family', km: 'កែងជើង (n)', emoji: '👟', sentenceEn: 'The [h]eel of my shoe is soft.', sentenceKm: 'កែងស្បែកជើងរបស់ខ្ញុំទន់ស្រួលពាក់។' },
+                            { label: 'meal', speakText: 'meal', breakdown: 'm + <span class="accent-text">eal</span>', rule: 'CVVC • -eal family', km: 'អាហារមួយពេល (n)', emoji: '🍱', sentenceEn: 'Breakfast is an important morning [m]eal.', sentenceKm: 'អាហារពេលព្រឹកគឺជាអាហារដ៏សំខាន់នៅពេលព្រឹក។' },
+                            { label: 'feel', speakText: 'feel', breakdown: 'f + <span class="accent-text">eel</span>', rule: 'CVVC • -eel family', km: 'មានអារម្មណ៍ / ស្ទាប (v)', emoji: '😊', sentenceEn: 'I [f]eel very happy today!', sentenceKm: 'ខ្ញុំមានអារម្មណ៍សប្បាយចិត្តណាស់នៅថ្ងៃនេះ!' },
+                            { label: 'peel', speakText: 'peel', breakdown: 'p + <span class="accent-text">eel</span>', rule: 'CVVC • -eel family', km: 'បកសំបក (v/n)', emoji: '🍌', sentenceEn: 'Please [p]eel the banana before eating.', sentenceKm: 'សូមបកសំបកចេកមុនពេលញ៉ាំ។' },
+                            { label: 'meet', speakText: 'meet', breakdown: 'm + <span class="accent-text">eet</span>', rule: 'CVVC • -eet family', km: 'ជួប (v)', emoji: '🤗', sentenceEn: 'Nice to [m]eet you, my new friend!', sentenceKm: 'រីករាយដែលបានជួបអ្នក មិត្តថ្មីរបស់ខ្ញុំ!' },
+                            { label: 'greeting', speakText: 'greeting', breakdown: 'gr<span class="accent-text">eet</span> + ing', rule: '2-Syllable • -eet', km: 'ការស្វាគមន៍ / ជម្រាបសួរ (n)', emoji: '🙏', sentenceEn: 'Sampeah is a polite Khmer [greeting].', sentenceKm: 'ការសំពះគឺជាការគួរសមស្វាគមន៍របស់ខ្មែរ។' },
+                            { label: 'bean', speakText: 'bean', breakdown: 'b + <span class="accent-text">ean</span>', rule: 'CVVC • -ean family', km: 'គ្រាប់សណ្តែក (n)', emoji: '🫘', sentenceEn: 'We plant a green [b]ean seed in soil.', sentenceKm: 'ពួកយើងដាំគ្រាប់សណ្តែកបាយក្នុងដី។' },
+                            { label: 'dustbin', speakText: 'dustbin', breakdown: 'dust + bin', rule: 'Compound Word', km: 'ធុងសំរាម (n)', emoji: '🗑️', sentenceEn: 'Throw your paper trash into the [dustbin].', sentenceKm: 'បោះសំរាមក្រដាសរបស់អ្នកចូលក្នុងធុងសំរាម។' },
+                            { label: 'mean', speakText: 'mean', breakdown: 'm + <span class="accent-text">ean</span>', rule: 'CVVC • -ean family', km: 'មានន័យថា (v)', emoji: '📖', sentenceEn: 'What does this English word [m]ean?', sentenceKm: 'តើពាក្យអង់គ្លេសនេះមានន័យដូចម្តេច?' }
+                        ]
+                    }
+                ]
+            },
+            // =========================================================================
+            // NEW LESSON 11: Long "ay, ai, a..e" Sound
+            // =========================================================================
+            {
+                id: 'long-a-sound',
+                tabEn: '11. "ay, ai, a_e"',
+                tabKm: 'សំឡេង ay, ai, a_e',
+                pageBadge: 'Lesson 11 • Long "ay, ai, a..e" Sound',
+                titleEn: 'Long "ay, ai, a..e" Sound (Word Families & Words)',
+                titleKm: 'មេរៀនទី១១៖ សំឡេងស្រៈវែង ay, ai, a..e (Long /eɪ/ Sound)',
+                grouped: true,
+                groups: [
+                    {
+                        groupNameEn: 'Word Families / Rimes (-ait, -aim, -aip, -aid, -ay)',
+                        groupNameKm: 'ក្រុមពាក្យចុងចួន ai / ay',
+                        items: [
+                            { label: '-ait', speakText: 'ait, wait, bait', breakdown: 'w<span class="accent-text">ait</span> • b<span class="accent-text">ait</span>', rule: '-ait Word Family', km: 'ពាក្យចុង -ait (អេត)', emoji: '⏳', sentenceEn: 'Please [w]ait in line for your turn.', sentenceKm: 'សូមរង់ចាំតាមជួរសម្រាប់វេនរបស់អ្នក។' },
+                            { label: '-aim', speakText: 'aim, claim, aim high', breakdown: '<span class="accent-text">aim</span> • cl<span class="accent-text">aim</span>', rule: '-aim Word Family', km: 'ពាក្យចុង -aim (អេម)', emoji: '🎯', sentenceEn: 'Always [aim] high and study hard!', sentenceKm: 'ត្រូវមានគោលដៅខ្ពស់ និងខិតខំរៀនសូត្រជានិច្ច!' },
+                            { label: '-aip', speakText: 'aip, ai blend sound', breakdown: '<span class="accent-text">ai</span> + p', rule: '-aip Sound Pattern', km: 'ពាក្យចុង -aip (អេប)', emoji: '🔤', sentenceEn: 'The letters a-i say the long /a/ sound.', sentenceKm: 'អក្សរ a-i បញ្ចេញសំឡេងស្រៈ a វែង។' },
+                            { label: '-aid', speakText: 'aid, paid, maid, braid', breakdown: 'p<span class="accent-text">aid</span> • m<span class="accent-text">aid</span> • br<span class="accent-text">aid</span>', rule: '-aid Word Family', km: 'ពាក្យចុង -aid (អេដ)', emoji: '💳', sentenceEn: 'Mom [p]aid for our fresh fruit.', sentenceKm: 'ម៉ាក់បានបង់ប្រាក់សម្រាប់ផ្លែឈើស្រស់របស់យើង។' },
+                            { label: '-ay', speakText: 'ay, play, say, day, way', breakdown: 'pl<span class="accent-text">ay</span> • s<span class="accent-text">ay</span> • w<span class="accent-text">ay</span>', rule: '-ay Word Family', km: 'ពាក្យចុង -ay (អេ)', emoji: '🛝', sentenceEn: 'We [pl]ay together every sunny d[ay].', sentenceKm: 'ពួកយើងលេងជាមួយគ្នារៀងរាល់ថ្ងៃដែលមានពន្លឺថ្ងៃ។' }
+                        ]
+                    },
+                    {
+                        groupNameEn: 'Long "ay, ai, a..e" Words (30 Words)',
+                        groupNameKm: 'ពាក្យប្រើសំឡេង ay, ai និង a..e',
+                        items: [
+                            { label: 'play', speakText: 'play', breakdown: '<span class="accent-text">pl</span> + ay', rule: 'CCVV • -ay family', km: 'លេង (v)', emoji: '⚽', sentenceEn: 'Children love to [pl]ay in the park.', sentenceKm: 'ក្មេងៗចូលចិត្តលេងនៅក្នុងសួនច្បារ។' },
+                            { label: 'say', speakText: 'say', breakdown: 's + <span class="accent-text">ay</span>', rule: 'CVV • -ay family', km: 'និយាយ / ថា (v)', emoji: '💬', sentenceEn: 'We [s]ay "Thank you" to our teacher.', sentenceKm: 'ពួកយើងនិយាយពាក្យ "អរគុណ" ទៅកាន់គ្រូរបស់យើង។' },
+                            { label: 'may', speakText: 'may', breakdown: 'm + <span class="accent-text">ay</span>', rule: 'CVV • -ay family', km: 'អាច / ខែឧសភា (v/n)', emoji: '🙋', sentenceEn: '[M]ay I drink some water, please?', sentenceKm: 'តើខ្ញុំអាចសុំផឹកទឹកបន្តិចបានទេ?' },
+                            { label: 'way', speakText: 'way', breakdown: 'w + <span class="accent-text">ay</span>', rule: 'CVV • -ay family', km: 'ផ្លូវ / វិធី (n)', emoji: '🛣️', sentenceEn: 'This is the safe [w]ay to our school.', sentenceKm: 'នេះគឺជាផ្លូវដែលមានសុវត្ថិភាពទៅសាលារៀនរបស់យើង។' },
+                            { label: 'railway', speakText: 'railway', breakdown: 'r<span class="accent-text">ai</span>l + w<span class="accent-text">ay</span>', rule: 'Compound • ai + ay', km: 'ផ្លូវរថភ្លើង (n)', emoji: '🚂', sentenceEn: 'The long train travels on the [railway].', sentenceKm: 'រថភ្លើងវែងធ្វើដំណើរនៅលើផ្លូវរថភ្លើង។' },
+                            { label: 'bay', speakText: 'bay', breakdown: 'b + <span class="accent-text">ay</span>', rule: 'CVV • -ay family', km: 'ឈូងសមុទ្រ (n)', emoji: '🏖️', sentenceEn: 'Boats rest calmly in the blue [b]ay.', sentenceKm: 'ទូកចតយ៉ាងស្ងប់ស្ងាត់នៅក្នុងឈូងសមុទ្រពណ៌ខៀវ។' },
+                            { label: 'today', speakText: 'today', breakdown: 'to + d<span class="accent-text">ay</span>', rule: '2-Syllable • -ay', km: 'ថ្ងៃនេះ (adv/n)', emoji: '📆', sentenceEn: '[Today] is a wonderful day to learn!', sentenceKm: 'ថ្ងៃនេះគឺជាថ្ងៃដ៏អស្ចារ្យសម្រាប់ការរៀនសូត្រ!' },
+                            { label: 'gray', speakText: 'gray', breakdown: '<span class="accent-text">gr</span> + ay', rule: 'CCVV • -ay family', km: 'ពណ៌ប្រផេះ (adj)', emoji: '🐘', sentenceEn: 'The big elephant has [gr]ay skin.', sentenceKm: 'សត្វដំរីធំមានស្បែកពណ៌ប្រផេះ។' },
+                            { label: 'gate', speakText: 'gate', breakdown: 'g + <span class="accent-text">a</span>t<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ទ្វាររបង (n)', emoji: '⛩️', sentenceEn: 'Close the garden [g]ate when you leave.', sentenceKm: 'បិទទ្វាររបងសួនច្បារនៅពេលអ្នកចាកចេញ។' },
+                            { label: 'hate', speakText: 'hate', breakdown: 'h + <span class="accent-text">a</span>t<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ស្អប់ / មិនចូលចិត្ត (v)', emoji: '😖', sentenceEn: 'Cats [h]ate getting wet in the rain.', sentenceKm: 'ឆ្មាមិនចូលចិត្តទទឹកភ្លៀងទេ។' },
+                            { label: 'make', speakText: 'make', breakdown: 'm + <span class="accent-text">a</span>k<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ធ្វើ / បង្កើត (v)', emoji: '🎨', sentenceEn: 'We [m]ake colorful paper airplanes.', sentenceKm: 'ពួកយើងបត់យន្តហោះក្រដាសចម្រុះពណ៌។' },
+                            { label: 'shake', speakText: 'shake', breakdown: '<span class="accent-text">sh</span> + <span class="accent-text">a</span>k<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ក្រឡុក / ចាប់ដៃ (v)', emoji: '🤝', sentenceEn: 'We [sh]ake hands when we greet friends.', sentenceKm: 'ពួកយើងចាប់ដៃគ្នានៅពេលស្វាគមន៍មិត្តភក្តិ។' },
+                            { label: 'plate', speakText: 'plate', breakdown: '<span class="accent-text">pl</span> + <span class="accent-text">a</span>t<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ចានសំប៉ែត (n)', emoji: '🍽️', sentenceEn: 'Put the warm rice on your [pl]ate.', sentenceKm: 'ដាក់បាយក្តៅៗនៅលើចានរបស់អ្នក។' },
+                            { label: 'date', speakText: 'date', breakdown: 'd + <span class="accent-text">a</span>t<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'កាលបរិច្ឆេទ / ផ្លែល្មើ (n)', emoji: '🗓️', sentenceEn: 'Write today’s [d]ate on the whiteboard.', sentenceKm: 'សរសេរកាលបរិច្ឆេទថ្ងៃនេះនៅលើក្តារខៀនស។' },
+                            { label: 'made', speakText: 'made', breakdown: 'm + <span class="accent-text">a</span>d<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'បានធ្វើ (v)', emoji: '🎂', sentenceEn: 'Grandma [m]ade a sweet cake for us.', sentenceKm: 'លោកយាយបានធ្វើនំខេកផ្អែមសម្រាប់ពួកយើង។' },
+                            { label: 'rake', speakText: 'rake', breakdown: 'r + <span class="accent-text">a</span>k<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'រនាស់ (n/v)', emoji: '🍂', sentenceEn: 'We [r]ake the dry leaves in the yard.', sentenceKm: 'ពួកយើងកោសស្លឹកឈើស្ងួតនៅក្នុងទីធ្លា។' },
+                            { label: 'wait', speakText: 'wait', breakdown: 'w + <span class="accent-text">ai</span> + t', rule: 'CVVC • -ait family', km: 'រង់ចាំ (v)', emoji: '🚏', sentenceEn: 'We [w]ait for the school bus every morning.', sentenceKm: 'ពួកយើងរង់ចាំឡានសាលារៀងរាល់ព្រឹក។' },
+                            { label: 'said', speakText: 'said', breakdown: 's + <span class="accent-text">ai</span> + d', rule: 'Sight Word • ai', km: 'បាននិយាយ (v)', emoji: '🗣️', sentenceEn: 'The teacher [s]aid, "Open your books."', sentenceKm: 'គ្រូបាននិយាយថា "សូមបើកសៀវភៅរបស់អ្នក"។' },
+                            { label: 'paid', speakText: 'paid', breakdown: 'p + <span class="accent-text">ai</span> + d', rule: 'CVVC • -aid family', km: 'បានបង់ប្រាក់ (v)', emoji: '💰', sentenceEn: 'He [p]aid for the new storybooks.', sentenceKm: 'គាត់បានបង់ប្រាក់សម្រាប់សៀវភៅរឿងថ្មីៗ។' },
+                            { label: 'delay', speakText: 'delay', breakdown: 'de + l<span class="accent-text">ay</span>', rule: '2-Syllable • -ay', km: 'ពន្យារពេល / យឺតយ៉ាវ (n/v)', emoji: '⏰', sentenceEn: 'Heavy rain caused a short [delay].', sentenceKm: 'ភ្លៀងធ្លាក់ខ្លាំងបានបណ្តាលឱ្យមានការយឺតយ៉ាវបន្តិច។' },
+                            { label: 'on-the-way', speakText: 'on the way', breakdown: 'on - the - w<span class="accent-text">ay</span>', rule: 'Phrase • -ay', km: 'នៅតាមផ្លូវ (phr)', emoji: '🚶', sentenceEn: 'I see green trees [on-the-way] to school.', sentenceKm: 'ខ្ញុំឃើញដើមឈើបៃតងនៅតាមផ្លូវទៅសាលារៀន។' },
+                            { label: 'Sunday', speakText: 'Sunday', breakdown: 'Sun + d<span class="accent-text">ay</span>', rule: 'Compound • -ay (Dunday)', km: 'ថ្ងៃអាទិត្យ (n)', emoji: '🌞', sentenceEn: '[Sunday] is a relaxing family day.', sentenceKm: 'ថ្ងៃអាទិត្យគឺជាថ្ងៃសម្រាកលំហែរបស់គ្រួសារ។' },
+                            { label: 'subway', speakText: 'subway', breakdown: 'sub + w<span class="accent-text">ay</span>', rule: 'Compound • -ay', km: 'រថភ្លើងក្រោមដី (n)', emoji: '🚇', sentenceEn: 'Many people ride the fast [subway].', sentenceKm: 'មនុស្សជាច្រើនជិះរថភ្លើងក្រោមដីដ៏លឿន។' },
+                            { label: 'x-ray', speakText: 'x-ray', breakdown: 'x - r<span class="accent-text">ay</span>', rule: 'Compound • -ay', km: 'កាំរស្មីអ៊ិច (n)', emoji: '🩻', sentenceEn: 'The doctor looks at the bone [x-ray].', sentenceKm: 'គ្រូពេទ្យពិនិត្យមើលហ្វីលកាំរស្មីអ៊ិចឆ្អឹង។' },
+                            { label: 'plane', speakText: 'plane', breakdown: '<span class="accent-text">pl</span> + <span class="accent-text">a</span>n<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'យន្តហោះ (n)', emoji: '✈️', sentenceEn: 'Look up at the white [pl]ane in the clouds!', sentenceKm: 'ងើយមើលយន្តហោះពណ៌សនៅលើពពកនោះ!' },
+                            { label: 'wake-up', speakText: 'wake up', breakdown: 'w<span class="accent-text">a</span>k<span class="accent-text">e</span> - up', rule: 'Phrasal Verb • a_e', km: 'ភ្ញាក់ពីគេង (v)', emoji: '⏰', sentenceEn: 'I [wake-up] early at six o’clock.', sentenceKm: 'ខ្ញុំភ្ញាក់ពីគេងពីព្រលឹមនៅម៉ោងប្រាំមួយ។' },
+                            { label: 'get-up', speakText: 'get up', breakdown: 'get - up', rule: 'Phrasal Verb', km: 'ក្រោកពីគេង (v)', emoji: '🛏️', sentenceEn: 'I [get-up] and brush my teeth.', sentenceKm: 'ខ្ញុំក្រោកពីគេង ហើយដុសធ្មេញរបស់ខ្ញុំ។' },
+                            { label: 'lake', speakText: 'lake', breakdown: 'l + <span class="accent-text">a</span>k<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'បឹង (n)', emoji: '🏞️', sentenceEn: 'Ducks swim peacefully on the calm [l]ake.', sentenceKm: 'សត្វទាហែលទឹកយ៉ាងសុខសាន្តនៅលើបឹងដ៏ស្ងប់ស្ងាត់។' },
+                            { label: 'name', speakText: 'name', breakdown: 'n + <span class="accent-text">a</span>m<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ឈ្មោះ (n)', emoji: '📛', sentenceEn: 'Please write your [n]ame at the top.', sentenceKm: 'សូមសរសេរឈ្មោះរបស់អ្នកនៅខាងលើ។' },
+                            { label: 'game', speakText: 'game', breakdown: 'g + <span class="accent-text">a</span>m<span class="accent-text">e</span>', rule: 'Magic-e • a_e', km: 'ល្បែងកម្សាន្ត / ហ្គេម (n)', emoji: '🎲', sentenceEn: 'Let us play a fun phonics [g]ame!', sentenceKm: 'តោះលេងល្បែងសូរសព្ទដ៏សប្បាយមួយ!' }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Application State
+        let activeCategoryIndex = 6; // Default to Lesson 7 (Short "e") so user immediately sees newly added lessons
+        let currentSelectedItem = null;
+        let searchQuery = '';
+
+        // Render Navigation Tabs (All 11 Lessons)
+        function renderTabs() {
+            const tabContainer = document.getElementById('categoryTabs');
+            tabContainer.innerHTML = phonicsCategories.map((cat, idx) => {
+                const isActive = idx === activeCategoryIndex && !searchQuery;
+                return `
+                    <button onclick="selectCategory(${idx})"
+                        class="shrink-0 px-3 py-2 rounded-2xl text-left transition-all cursor-pointer border-2 flex flex-col justify-center ${
+                            isActive
+                            ? 'accent-bg text-white border-transparent shadow-md scale-[1.03]'
+                            : 'bg-white/90 hover:bg-white text-gray-800 border-gray-200'
+                        }">
+                        <span class="font-english text-xs font-bold leading-tight">${cat.tabEn}</span>
+                        <span class="font-khmer-body text-[11px] ${isActive ? 'text-white/90' : 'text-gray-500'} mt-0.5">${cat.tabKm}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Switch Category Tab
+        function selectCategory(index) {
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            activeCategoryIndex = index;
+            renderTabs();
+            renderCategoryContent();
+        }
+
+        // Handle Search Input across all 11 Lessons
+        function handleSearch(val) {
+            searchQuery = val.trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (searchQuery) {
+                clearBtn.classList.remove('hidden');
+                renderTabs();
+                renderSearchResults();
+            } else {
+                clearBtn.classList.add('hidden');
+                renderTabs();
+                renderCategoryContent();
+            }
+        }
+
+        function clearSearch() {
+            handleSearch('');
+            document.getElementById('searchInput').value = '';
+        }
+
+        // Render Search Results across all lessons
+        function renderSearchResults() {
+            const results = [];
+            phonicsCategories.forEach((cat, cIdx) => {
+                if (cat.grouped) {
+                    cat.groups.forEach((grp, gIdx) => {
+                        grp.items.forEach((item, iIdx) => {
+                            if (item.label.toLowerCase().includes(searchQuery) || item.km.toLowerCase().includes(searchQuery)) {
+                                results.push({ item, keyId: `search-${cIdx}-${gIdx}-${iIdx}`, lessonTitle: cat.tabEn });
+                            }
+                        });
+                    });
+                } else {
+                    cat.items.forEach((item, iIdx) => {
+                        if (item.label.toLowerCase().includes(searchQuery) || item.km.toLowerCase().includes(searchQuery)) {
+                            results.push({ item, keyId: `search-${cIdx}-${iIdx}`, lessonTitle: cat.tabEn });
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('lessonBadge').textContent = `Search Results (${results.length})`;
+            document.getElementById('lessonTitleEn').textContent = `Matching "${searchQuery}"`;
+            document.getElementById('lessonTitleKm').textContent = `លទ្ធផលស្វែងរកពាក្យ`;
+
+            const container = document.getElementById('cardsContainer');
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white/90 rounded-2xl p-8 text-center border border-gray-200">
+                        <p class="font-khmer-body text-gray-600 text-sm">មិនមានពាក្យដែលត្រូវនឹងការស្វែងរក "${searchQuery}" ទេ។</p>
+                    </div>
+                `;
+                return;
+            }
+
+            window.currentSearchMap = {};
+            results.forEach(r => {
+                window.currentSearchMap[r.keyId] = r.item;
+            });
+
+            container.innerHTML = `
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4">
+                    ${results.map(r => createCardHTML(r.item, r.keyId, r.lessonTitle)).join('')}
+                </div>
+            `;
+
+            selectItem(results[0].item, results[0].keyId, false);
+        }
+
+        // Render Cards for the Selected Category
+        function renderCategoryContent() {
+            const category = phonicsCategories[activeCategoryIndex];
+            
+            // Update Lesson Header
+            document.getElementById('lessonBadge').textContent = category.pageBadge;
+            document.getElementById('lessonTitleEn').textContent = category.titleEn;
+            document.getElementById('lessonTitleKm').textContent = category.titleKm;
+
+            const container = document.getElementById('cardsContainer');
+
+            if (category.grouped) {
+                // Grouped layout (Word Families + Words)
+                container.innerHTML = category.groups.map((group, gIdx) => `
+                    <div class="${gIdx > 0 ? 'mt-6 pt-5 border-t border-black/10' : ''}">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3 px-1">
+                            <h3 class="font-english text-sm sm:text-base font-bold text-gray-800">${group.groupNameEn}</h3>
+                            <span class="font-khmer-muol text-xs sm:text-sm accent-text">${group.groupNameKm}</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
+                            ${group.items.map((item, iIdx) => createCardHTML(item, `${gIdx}-${iIdx}`)).join('')}
+                        </div>
+                    </div>
+                `).join('');
+
+                // Auto-select the first word in the second group (if available) or first group
+                if (category.groups.length > 1 && category.groups[1].items.length > 0) {
+                    selectItem(category.groups[1].items[0], '1-0', false);
+                } else {
+                    selectItem(category.groups[0].items[0], '0-0', false);
+                }
+            } else {
+                // Standard flat grid layout
+                container.innerHTML = `
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-3 sm:gap-4">
+                        ${category.items.map((item, idx) => createCardHTML(item, `${idx}`)).join('')}
+                    </div>
+                `;
+
+                // Auto-select the first item
+                selectItem(category.items[0], '0', false);
+            }
+        }
+
+        // Generate Individual Phonics Card HTML
+        function createCardHTML(item, keyId, badgeText = '') {
+            return `
+                <button id="card-${keyId}" onclick="handleCardClick('${keyId}')"
+                    class="phonics-card bg-white rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center shadow-sm cursor-pointer relative group">
+                    ${badgeText ? `<span class="text-[9px] font-english font-bold uppercase px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 mb-1">${badgeText}</span>` : ''}
+                    <span class="text-2xl sm:text-3xl mb-1 select-none group-hover:scale-110 transition-transform">${item.emoji}</span>
+                    <span class="font-phonics text-lg sm:text-xl md:text-2xl font-bold text-gray-900 tracking-wide break-words leading-tight">${item.label}</span>
+                    <span class="font-khmer-body text-[11px] sm:text-xs text-gray-600 mt-1 line-clamp-1">${item.km}</span>
+                    <span class="no-print absolute top-2 right-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">🔊</span>
+                </button>
+            `;
+        }
+
+        // Handle Card Click by keyId
+        function handleCardClick(keyId) {
+            if (keyId.startsWith('search-') && window.currentSearchMap) {
+                const item = window.currentSearchMap[keyId];
+                if (item) selectItem(item, keyId, true);
+                return;
+            }
+
+            const category = phonicsCategories[activeCategoryIndex];
+            let item = null;
+
+            if (category.grouped) {
+                const [gIdx, iIdx] = keyId.split('-').map(Number);
+                item = category.groups[gIdx].items[iIdx];
+            } else {
+                item = category.items[Number(keyId)];
+            }
+
+            if (item) {
+                selectItem(item, keyId, true);
+            }
+        }
+
+        // Format Sentence with Highlighted Target Word(s)
+        function formatHighlightedSentence(rawSentence) {
+            return rawSentence.replace(/\[([^\]]+)\]([a-zA-Z'-]*)/g, (match, bracketPart, restOfWord) => {
+                return `<span class="inline-block px-2 py-0.5 mx-0.5 rounded-xl accent-soft-bg accent-text font-bold border accent-border shadow-xs">${bracketPart}${restOfWord}</span>`;
+            });
+        }
+
+        // Clean raw sentence text for Speech Synthesis
+        function getCleanSentenceText(rawSentence) {
+            return rawSentence.replace(/\[|\]/g, '');
+        }
+
+        // Update Bottom Learning & Sentence Panel
+        function selectItem(item, keyId, shouldSpeak = true) {
+            currentSelectedItem = item;
+
+            // Update visual selection ring on cards
+            document.querySelectorAll('.phonics-card').forEach(el => el.classList.remove('selected'));
+            const activeCard = document.getElementById(`card-${keyId}`);
+            if (activeCard) {
+                activeCard.classList.add('selected');
+            }
+
+            // Populate Panel Elements
+            document.getElementById('panelEmoji').textContent = item.emoji;
+            document.getElementById('panelRuleTag').textContent = item.rule;
+            document.getElementById('panelWordBreakdown').innerHTML = item.breakdown;
+            document.getElementById('panelKhmerWord').textContent = item.km;
+            document.getElementById('panelSentenceEn').innerHTML = formatHighlightedSentence(item.sentenceEn);
+            document.getElementById('panelSentenceKm').textContent = item.sentenceKm;
+
+            // Speak the word/sound automatically on user click
+            if (shouldSpeak) {
+                speakText(item.speakText, 0.85, `Word / Sound: "${item.label}"`);
+            }
+        }
+
+        // Generate Individual Phonics Card HTML
+        function createCardHTML(item, keyId) {
+            // Safely encode item index lookup via data attribute
+            return `
+                <button id="card-${keyId}" onclick="handleCardClick('${keyId}')"
+                    class="phonics-card bg-white rounded-2xl p-3.5 sm:p-4 flex flex-col items-center justify-center text-center shadow-sm cursor-pointer relative group">
+                    <span class="text-2xl sm:text-3xl mb-1.5 select-none group-hover:scale-110 transition-transform">${item.emoji}</span>
+                    <span class="font-phonics text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-wide">${item.label}</span>
+                    <span class="font-khmer-body text-[11px] sm:text-xs text-gray-500 mt-1 line-clamp-1">${item.km}</span>
+                    <span class="no-print absolute top-2 right-2 text-xs opacity-40 group-hover:opacity-100 transition-opacity">🔊</span>
+                </button>
+            `;
+        }
+
+        // Handle Card Click by keyId
+        function handleCardClick(keyId) {
+            const category = phonicsCategories[activeCategoryIndex];
+            let item = null;
+
+            if (category.grouped) {
+                const [gIdx, iIdx] = keyId.split('-').map(Number);
+                item = category.groups[gIdx].items[iIdx];
+            } else {
+                item = category.items[Number(keyId)];
+            }
+
+            if (item) {
+                selectItem(item, keyId, true);
+            }
+        }
+
+        // Format Sentence with Highlighted Target Word(s)
+        function formatHighlightedSentence(rawSentence) {
+            // Convert bracketed letters like [b]at or [bl]ack into cleanly highlighted words
+            return rawSentence.replace(/\[([^\]]+)\]([a-zA-Z']*)/g, (match, bracketPart, restOfWord) => {
+                return `<span class="inline-block px-2 py-0.5 mx-0.5 rounded-xl accent-soft-bg accent-text font-bold border accent-border shadow-xs">${bracketPart}${restOfWord}</span>`;
+            });
+        }
+
+        // Clean raw sentence text for Speech Synthesis
+        function getCleanSentenceText(rawSentence) {
+            return rawSentence.replace(/\[|\]/g, '');
+        }
+
+        // Update Bottom Learning & Sentence Panel
+        function selectItem(item, keyId, shouldSpeak = true) {
+            currentSelectedItem = item;
+
+            // Update visual selection ring on cards
+            document.querySelectorAll('.phonics-card').forEach(el => el.classList.remove('selected'));
+            const activeCard = document.getElementById(`card-${keyId}`);
+            if (activeCard) {
+                activeCard.classList.add('selected');
+            }
+
+            // Populate Panel Elements
+            document.getElementById('panelEmoji').textContent = item.emoji;
+            document.getElementById('panelRuleTag').textContent = item.rule;
+            document.getElementById('panelWordBreakdown').innerHTML = item.breakdown;
+            document.getElementById('panelKhmerWord').textContent = item.km;
+            document.getElementById('panelSentenceEn').innerHTML = formatHighlightedSentence(item.sentenceEn);
+            document.getElementById('panelSentenceKm').textContent = item.sentenceKm;
+
+            // Speak the word/sound automatically on user click
+            if (shouldSpeak) {
+                speakText(item.speakText, 0.85, `Sound / Word: "${item.label}"`);
+            }
+        }
+
+        // Audio Helper Functions
+        function speakCurrentWord() {
+            if (!currentSelectedItem) return;
+            speakText(currentSelectedItem.speakText, 0.85, `Sound / Word: "${currentSelectedItem.label}"`);
+        }
+
+        function speakCurrentSentence() {
+            if (!currentSelectedItem) return;
+            const cleanSentence = getCleanSentenceText(currentSelectedItem.sentenceEn);
+            speakText(cleanSentence, 0.78, `Reading sentence...`);
+        }
+
+        function speakText(text, rate = 0.85, toastLabel = '') {
+            const toast = document.getElementById('audioToast');
+            const toastText = document.getElementById('audioToastText');
+
+            toastText.textContent = toastLabel || text;
+            toast.classList.remove('opacity-0');
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = rate;
+                utterance.pitch = 1.05;
+                window.speechSynthesis.speak(utterance);
+            }
+
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2200);
+        }
+
+        // Background Theme Switcher
+        function setTheme(themeClass, btnElement) {
+            const body = document.getElementById('mainBody');
+            body.classList.remove('theme-cream', 'theme-sky', 'theme-mint', 'theme-lavender');
+            body.classList.add(themeClass);
+
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-offset-1', 'ring-amber-500', 'ring-sky-500', 'ring-emerald-500', 'ring-violet-500');
+            });
+
+            const ringMap = {
+                'theme-cream': 'ring-amber-500',
+                'theme-sky': 'ring-sky-500',
+                'theme-mint': 'ring-emerald-500',
+                'theme-lavender': 'ring-violet-500'
+            };
+            btnElement.classList.add('ring-2', 'ring-offset-1', ringMap[themeClass]);
+        }
+
+        // Initialize App on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderTabs();
+            renderCategoryContent();
+        });
+    </script>
+</body>
+</html>
